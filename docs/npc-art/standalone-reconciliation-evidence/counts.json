@@ -1,0 +1,1019 @@
+[
+  {
+    "name": "Gunther",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          128
+        ],
+        "currentSize": [
+          64,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          8,
+          12
+        ],
+        "placeholder": [
+          {
+            "i": 5,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 6,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 7,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 9,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 10,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 11,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 13,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 14,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 15,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          64,
+          64
+        ],
+        "currentSize": [
+          64,
+          64
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          256
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Morris",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          192
+        ],
+        "currentSize": [
+          64,
+          192
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          768
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Marlon",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          128
+        ],
+        "currentSize": [
+          64,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          12
+        ],
+        "placeholder": [
+          {
+            "i": 9,
+            "count": 0,
+            "unique": 1,
+            "same": false
+          },
+          {
+            "i": 10,
+            "count": 0,
+            "unique": 1,
+            "same": false
+          },
+          {
+            "i": 11,
+            "count": 0,
+            "unique": 1,
+            "same": false
+          },
+          {
+            "i": 13,
+            "count": 512,
+            "unique": 1,
+            "same": false
+          },
+          {
+            "i": 14,
+            "count": 512,
+            "unique": 1,
+            "same": false
+          },
+          {
+            "i": 15,
+            "count": 512,
+            "unique": 1,
+            "same": false
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          64,
+          64
+        ],
+        "currentSize": [
+          64,
+          64
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          256
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Sandy",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          160
+        ],
+        "currentSize": [
+          64,
+          160
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "placeholder": [
+          {
+            "i": 18,
+            "count": 512,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 19,
+            "count": 512,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          640
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Wizard",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          192
+        ],
+        "currentSize": [
+          64,
+          192
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "placeholder": [
+          {
+            "i": 23,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          768
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          64
+        ],
+        "currentSize": [
+          128,
+          64
+        ],
+        "body": [
+          0,
+          1
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          256
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Dwarf",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          120
+        ],
+        "currentSize": [
+          64,
+          120
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          480
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          64,
+          64
+        ],
+        "currentSize": [
+          64,
+          64
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          256
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Krobus",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          144
+        ],
+        "currentSize": [
+          64,
+          144
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "frameSize": [
+          16,
+          24
+        ],
+        "preparedPreviewDimensions": [
+          256,
+          576
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          320
+        ],
+        "currentSize": [
+          128,
+          320
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "placeholder": [
+          {
+            "i": 9,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          1280
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Bouncer",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          16,
+          32
+        ],
+        "currentSize": [
+          16,
+          32
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          64,
+          128
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          64,
+          64
+        ],
+        "currentSize": [
+          64,
+          64
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          256
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Governor",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          128
+        ],
+        "currentSize": [
+          64,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "placeholder": [
+          {
+            "i": 5,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 6,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 7,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 15,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Henchman",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          96
+        ],
+        "currentSize": [
+          64,
+          96
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          384
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2
+        ],
+        "placeholder": [
+          {
+            "i": 3,
+            "count": 4096,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Bear",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          128,
+          160
+        ],
+        "currentSize": [
+          128,
+          160
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "placeholder": [
+          {
+            "i": 18,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          },
+          {
+            "i": 19,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          640
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "Fizz",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          16,
+          32
+        ],
+        "currentSize": [
+          16,
+          32
+        ],
+        "body": [
+          0
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          64,
+          128
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  },
+  {
+    "name": "SafariGuy",
+    "entries": [
+      {
+        "cat": "Characters",
+        "size": [
+          64,
+          160
+        ],
+        "currentSize": [
+          64,
+          160
+        ],
+        "body": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "placeholder": [],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          256,
+          640
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      },
+      {
+        "cat": "Portraits",
+        "size": [
+          128,
+          128
+        ],
+        "currentSize": [
+          128,
+          128
+        ],
+        "body": [
+          0,
+          1,
+          2
+        ],
+        "placeholder": [
+          {
+            "i": 3,
+            "count": 0,
+            "unique": 1,
+            "same": true
+          }
+        ],
+        "unchangedBody": [],
+        "latestAuditPackageBytesEqualCurrent": true,
+        "preparedPreviewDimensions": [
+          512,
+          512
+        ],
+        "preparedPreviewResizedPixelsEqualCurrent": true
+      }
+    ]
+  }
+]

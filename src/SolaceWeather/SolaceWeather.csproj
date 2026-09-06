@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>0.2.0</Version>
+    <EnableModDeploy>false</EnableModDeploy>
+    <EnableModZip>false</EnableModZip>
+    <EnableHarmony>true</EnableHarmony>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BmFont" HintPath="$(GamePath)/BmFont.dll" Private="false" />
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
+    <ProjectReference Include="../SolaceWeather.Core/SolaceWeather.Core.csproj" />
+    <None Update="manifest.json; i18n/**/*.json; assets/**/*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

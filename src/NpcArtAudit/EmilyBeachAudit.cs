@@ -1,0 +1,47 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI;
+using StardewValley;
+
+namespace NpcArtAudit;
+internal static class EmilyBeachAudit
+{
+    public static void Run(IModHelper helper,IMonitor monitor)
+    {
+        var oldSeason=Game1.season;var oldLocation=Game1.currentLocation;
+        try
+        {
+            Game1.season=Season.Summer;
+            var location=new GameLocation("Maps/Town","Town");Game1.currentLocation=location;
+            var npc=new NPC(new AnimatedSprite("Characters/Emily",0,16,32),Vector2.Zero,2,"Emily"){currentLocation=location};
+            npc.wearIslandAttire();
+            if((npc.Sprite.overrideTextureName??npc.Sprite.textureName.Value).Replace('\\','/')!="Characters/Emily_Beach")throw new Exception("Native beach appearance not selected");
+            void Equal(Texture2D a,Texture2D b){var pa=new Color[a.Width*a.Height];var pb=new Color[b.Width*b.Height];a.GetData(pa);b.GetData(pb);if(!pa.SequenceEqual(pb))throw new Exception("Native texture pixels differ");}
+            Equal(npc.Sprite.Texture,helper.GameContent.Load<Texture2D>("Characters/Emily_Beach"));
+            Equal(npc.Portrait,helper.GameContent.Load<Texture2D>("Portraits/Emily_Beach"));
+            for(var i=0;i<8;i++){var dialogue=new Dialogue(npc,null,"Beach portrait check.$"+i);if(dialogue.getPortraitIndex()!=i)throw new Exception("Portrait index mismatch "+i);}
+            var texture=npc.Sprite.Texture;var pixels=new Color[texture.Width*texture.Height];texture.GetData(pixels);
+            for(var frame=0;frame<24;frame++){npc.Sprite.CurrentFrame=frame;var rect=npc.Sprite.SourceRect;if(rect.X!=frame%4*16||rect.Y!=frame/4*32)throw new Exception("Frame layout mismatch");var visible=0;for(var y=rect.Y;y<rect.Bottom;y++)for(var x=rect.X;x<rect.Right;x++)if(pixels[y*64+x].A>0)visible++;if((frame!=19)!=(visible>0))throw new Exception("Occupied/blank frame mismatch");}
+            for(var frame=22;frame<24;frame++)for(var y=160;y<192;y++)for(var x=frame%4*16;x<frame%4*16+16;x++)if(pixels[y*64+x]!=Color.White)throw new Exception("Reserved white placeholder changed");
+            var danceFrames=helper.GameContent.Load<Dictionary<string,string>>("Data/animationDescriptions")["emily_beach_dance"].Split('/')[1].Split(' ',StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            if(danceFrames.Any(frame=>frame<0||frame>=24||frame==19||frame>=22))throw new Exception("Native dance references empty frame");
+            npc.Sprite.loop=true;
+            npc.Sprite.setCurrentAnimation(danceFrames.Select(frame=>new FarmerSprite.AnimationFrame(frame,150)).ToList());
+            for(var step=1;step<=danceFrames.Length*2;step++)
+            {
+                npc.Sprite.animateOnce(new GameTime(TimeSpan.FromMilliseconds(step*150),TimeSpan.FromMilliseconds(150)));
+                if(npc.Sprite.CurrentFrame!=danceFrames[step%danceFrames.Length])throw new Exception("Native beach dance playback mismatch");
+            }
+            var device=Game1.graphics.GraphicsDevice;var previous=device.GetRenderTargets();using var target=new RenderTarget2D(device,1024,1024);using var batch=new SpriteBatch(device);
+            try{device.SetRenderTarget(target);device.Clear(new Color(35,45,58));batch.Begin(samplerState:SamplerState.PointClamp);for(var i=0;i<22;i++)batch.Draw(texture,new Rectangle(i%8*64+8,i/8*132+8,48,96),new Rectangle(i%4*16,i/4*32,16,32),Color.White);batch.Draw(npc.Portrait,new Rectangle(600,16,384,768),Color.White);batch.End();device.SetRenderTargets(previous);using var f=File.Create(Path.Combine(helper.DirectoryPath,"emily-beach-runtime-preview.png"));target.SaveAsPng(f,1024,1024);}finally{device.SetRenderTargets(previous);}
+            npc.wearNormalClothes();Equal(npc.Sprite.Texture,helper.GameContent.Load<Texture2D>("Characters/Emily"));Equal(npc.Portrait,helper.GameContent.Load<Texture2D>("Portraits/Emily"));
+            helper.Data.WriteJsonFile("emily-beach-checks.json",new{Passed=true,OccupiedFrames=21,BlankFrames=1,PlaceholderFrames=2,PortraitSlots=8,NativeBeachSelected=true,NormalOutfitRestored=true,NativeBeachDanceSteps=danceFrames.Length*2,FarmLoaded=false,FullEventPlayback=false});
+            monitor.Log("Emily beach audit passed:21 poses,8 portrait slots, native beach selection and normal outfit restoration; event playback remains unverified.",LogLevel.Info);
+        }
+        catch(Exception ex){helper.Data.WriteJsonFile("emily-beach-checks.json",new{Passed=false,Error=ex.ToString()});monitor.Log("Emily beach audit failed: "+ex,LogLevel.Error);}
+        finally{Game1.season=oldSeason;Game1.currentLocation=oldLocation;}
+    }
+}
+
+
+

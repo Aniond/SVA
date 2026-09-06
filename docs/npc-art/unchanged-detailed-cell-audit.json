@@ -1,0 +1,203 @@
+{
+  "note": "Read-only pixel triage. Native detailed unchanged cells may be intentional props; inspect semantics before changing.",
+  "results": [
+    {
+      "asset": "Characters/Pam",
+      "unchangedDetailedCells": [
+        {
+          "frame": 20,
+          "colors": 11
+        },
+        {
+          "frame": 21,
+          "colors": 11
+        },
+        {
+          "frame": 22,
+          "colors": 11
+        },
+        {
+          "frame": 23,
+          "colors": 11
+        }
+      ]
+    },
+    {
+      "asset": "Characters/Willy",
+      "unchangedDetailedCells": [
+        {
+          "frame": 20,
+          "colors": 10
+        },
+        {
+          "frame": 21,
+          "colors": 10
+        },
+        {
+          "frame": 22,
+          "colors": 10
+        },
+        {
+          "frame": 23,
+          "colors": 10
+        },
+        {
+          "frame": 37,
+          "colors": 7
+        },
+        {
+          "frame": 38,
+          "colors": 7
+        }
+      ]
+    },
+    {
+      "asset": "Characters/Assorted_Fishermen_Winter",
+      "unchangedDetailedCells": [
+        {
+          "frame": 4,
+          "colors": 11
+        },
+        {
+          "frame": 5,
+          "colors": 7
+        },
+        {
+          "frame": 6,
+          "colors": 9
+        },
+        {
+          "frame": 7,
+          "colors": 9
+        },
+        {
+          "frame": 12,
+          "colors": 11
+        },
+        {
+          "frame": 13,
+          "colors": 10
+        },
+        {
+          "frame": 17,
+          "colors": 6
+        },
+        {
+          "frame": 18,
+          "colors": 6
+        },
+        {
+          "frame": 21,
+          "colors": 6
+        },
+        {
+          "frame": 23,
+          "colors": 6
+        },
+        {
+          "frame": 24,
+          "colors": 7
+        }
+      ]
+    },
+    {
+      "asset": "Characters/Assorted_Fishermen",
+      "unchangedDetailedCells": [
+        {
+          "frame": 4,
+          "colors": 11
+        },
+        {
+          "frame": 5,
+          "colors": 7
+        },
+        {
+          "frame": 6,
+          "colors": 9
+        },
+        {
+          "frame": 7,
+          "colors": 9
+        },
+        {
+          "frame": 12,
+          "colors": 11
+        },
+        {
+          "frame": 13,
+          "colors": 10
+        },
+        {
+          "frame": 17,
+          "colors": 6
+        },
+        {
+          "frame": 18,
+          "colors": 6
+        },
+        {
+          "frame": 21,
+          "colors": 6
+        },
+        {
+          "frame": 23,
+          "colors": 6
+        },
+        {
+          "frame": 24,
+          "colors": 7
+        }
+      ]
+    },
+    {
+      "asset": "Characters/Pam_Winter",
+      "unchangedDetailedCells": [
+        {
+          "frame": 20,
+          "colors": 11
+        },
+        {
+          "frame": 21,
+          "colors": 11
+        },
+        {
+          "frame": 22,
+          "colors": 11
+        },
+        {
+          "frame": 23,
+          "colors": 11
+        }
+      ]
+    },
+    {
+      "asset": "Characters/Willy_Winter",
+      "unchangedDetailedCells": [
+        {
+          "frame": 20,
+          "colors": 10
+        },
+        {
+          "frame": 21,
+          "colors": 10
+        },
+        {
+          "frame": 22,
+          "colors": 10
+        },
+        {
+          "frame": 23,
+          "colors": 10
+        },
+        {
+          "frame": 37,
+          "colors": 7
+        },
+        {
+          "frame": 38,
+          "colors": 7
+        }
+      ]
+    }
+  ]
+}

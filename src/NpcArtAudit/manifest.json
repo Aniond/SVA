@@ -1,0 +1,9 @@
+{
+  "Name": "NPC Art Audit",
+  "Author": "David",
+  "Version": "0.1.0",
+  "Description": "Development-only read-only NPC asset inventory. Does not load or save a farm.",
+  "UniqueID": "David.NpcArtAudit",
+  "EntryDll": "NpcArtAudit.dll",
+  "MinimumApiVersion": "4.5.2"
+}

@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.tools/
+artifacts/
+dist/
+*.user
+.vs/
+config.json
+
+audio-preferences.json
+audio-runtime-status.json
+.env
+.env.*

@@ -1,0 +1,32 @@
+{
+  "version": "0.8.2",
+  "status": "installed and verified",
+  "registeredTextures": 343,
+  "packageFiles": 347,
+  "covered": {
+    "flooring": "All 13 native placeable flooring/path families in ordinary and winter form. Stone Floor was already installed; 12 additional families polished.",
+    "fences": "Wood, stone, iron, hardwood, their connection/broken/debris pieces and native gates.",
+    "roadsAndBridges": "Selected seasonal Town cobblestone paving, curbs, circular plaza and stone bridges; Beach broken/repaired bridge; Mountain quarry broken/repaired bridge and ends; shared small plank crossing cells; native island suspension bridge. Beach piers, Forest crossings/fishing dock and ordinary farm crossings including Beach Farm seasonal dock/planks are included.",
+    "craftables": "Complete Craftables atlas surface finish: 182 native item definitions, including machines, chests, signs, lamps and decorations. 363 occupied frames, including opening and mask frames; 317 frames receive changed surface pixels.",
+    "furniture": "All 645 native Furniture definitions have their referenced sheet included: 447 ordinary and 198 themed/cactus definitions. Foreground overlays and ChairTiles included. The finish preserves original silhouettes and uses restrained generated-material luminance detail.",
+    "smallProps": "28 source cells: ordinary torches, sprinklers, fence/path inventory icons and Crab Pot frames710 through714.",
+    "staticMapProps": "Identified Town and outdoor benches, bins, fence/sign clusters, selected lamps, curb post and utility fixtures across four seasonal sheets. Eight seasonal garbage-lid/open-bin source rectangles included. Adjacent plants, snow and ground preserved. Identified Town mailbox, garbage barrel, paired crates, bus ticket machine and outdoor stage barrels are included; existing minecart controls were verified already covered."
+  },
+  "knownOrdinaryInventoryClosure": "All nine concrete ordinaryRemaining entries from work/roads-bridges/remaining-inventory.json are included through roads-addendum, town-props-addendum and outdoor-props-addendum. That original report is a pre-addendum snapshot.",
+  "limits": [
+    "This is not a claim that every decorative map tile or unique prop in every location/event has been inventoried or redrawn.",
+    "Selected shared map placements were traced across 15 standard maps. Desert, Railroad, special/festival maps and Town makeover variants remain outside comprehensive map coverage. The separate native island suspension bridge is included.",
+    "Vehicles, building facades, unique event decorations and unscanned location-specific props are outside this bounded batch. Native flame, mail-notification and garbage-particle effects remain in use.",
+    "Verification uses isolated native draw fixtures, item source/rotation bounds, static map reconstructions and title-screen loading. No farm save, bridge repair quest, crafting, garbage interaction or full location playthrough is performed."
+  ],
+  "manifests": [
+    "artifacts/terrain-modern/work/outdoor-install-manifest.json",
+    "artifacts/terrain-modern/work/outdoor-addendum-install-manifest.json",
+    "artifacts/terrain-modern/work/outdoor-final-install-manifest.json"
+  ],
+  "evidence": [
+    "artifacts/npc-modern/evidence/isolated-0.8.2.json",
+    "artifacts/npc-modern/evidence/installed-0.8.2.json",
+    "artifacts/npc-modern/evidence/outdoor-props-checks.json"
+  ]
+}

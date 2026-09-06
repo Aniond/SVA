@@ -1,0 +1,10 @@
+{
+  "Name": "Solace Weather Test Harness",
+  "Author": "David",
+  "Version": "0.1.0",
+  "Description": "Temporary local verification harness. Never ship with the weather mod.",
+  "UniqueID": "David.SolaceWeather.GameTests",
+  "EntryDll": "SolaceWeather.GameTests.dll",
+  "MinimumApiVersion": "4.5.2",
+  "Dependencies": [{ "UniqueID": "David.SolaceWeather", "IsRequired": true }]
+}

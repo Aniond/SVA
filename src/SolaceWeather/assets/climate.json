@@ -1,0 +1,24 @@
+{
+  "Valley": {
+    "SeasonalTemperaturesC": [12, 25, 13, -2],
+    "PrecipitationChance": 0.38,
+    "SeasonalPrecipitationChances": [0.50, 0.22, 0.48, 0.30],
+    "RainIntensityScale": 1.0,
+    "DailyTemperatureSwingC": 5
+  },
+  "Desert": {
+    "SeasonalTemperaturesC": [25, 38, 27, 18],
+    "PrecipitationChance": 0.04,
+    "SeasonalPrecipitationChances": [0.06, 0.02, 0.05, 0.04],
+    "RainIntensityScale": 1.0,
+    "DailyTemperatureSwingC": 9
+  },
+  "Island": {
+    "SeasonalTemperaturesC": [26, 29, 27, 24],
+    "PrecipitationChance": 0.55,
+    "SeasonalPrecipitationChances": [0.50, 0.60, 0.55, 0.40],
+    "RainIntensityScale": 1.0,
+    "DailyTemperatureSwingC": 3
+  },
+  "CropWateringThreshold": 60
+}

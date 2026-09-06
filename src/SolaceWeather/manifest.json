@@ -1,0 +1,27 @@
+{
+  "Name": "Solace Weather",
+  "Author": "David",
+  "Version": "0.2.0",
+  "Description": "Evolving regional weather, forecasts, and an Egg Festival shelter pilot.",
+  "UniqueID": "David.SolaceWeather",
+  "EntryDll": "SolaceWeather.dll",
+  "MinimumApiVersion": "4.5.2",
+  "UpdateKeys": []
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

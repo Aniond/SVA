@@ -1,0 +1,9 @@
+{
+  "Name": "NPC Modern",
+  "Author": "David",
+  "Version": "0.13.0",
+  "Description": "Polished artwork with translucent blue interfaces, refreshed UI symbols, seasonal locations and visual effects.",
+  "UniqueID": "David.AbigailModern",
+  "EntryDll": "AbigailModern.dll",
+  "MinimumApiVersion": "4.5.2"
+}

@@ -1,0 +1,532 @@
+[
+  {
+    "asset": "Maps/bathhouse_tiles",
+    "width": 240,
+    "height": 256
+  },
+  {
+    "asset": "Maps/boatTunnelTiles",
+    "width": 160,
+    "height": 208
+  },
+  {
+    "asset": "Maps/bugLandTiles",
+    "width": 128,
+    "height": 224
+  },
+  {
+    "asset": "Maps/CarolineGreenhouseTiles",
+    "width": 128,
+    "height": 256
+  },
+  {
+    "asset": "Maps/CarolineGreenhouseTiles_rainy",
+    "width": 128,
+    "height": 256
+  },
+  {
+    "asset": "Maps/cave",
+    "width": 96,
+    "height": 192
+  },
+  {
+    "asset": "Maps/coopTiles",
+    "width": 64,
+    "height": 336
+  },
+  {
+    "asset": "Maps/darkroom_tiles",
+    "width": 112,
+    "height": 128
+  },
+  {
+    "asset": "Maps/DesertTiles",
+    "width": 256,
+    "height": 368
+  },
+  {
+    "asset": "Maps/DesertTiles_Extended",
+    "width": 48,
+    "height": 176
+  },
+  {
+    "asset": "Maps/desert_festival_tilesheet",
+    "width": 512,
+    "height": 544
+  },
+  {
+    "asset": "Maps/desert_festival_tilesheet_text",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/desert_festival_tilesheet_text_international",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/ElliottHouseTiles",
+    "width": 64,
+    "height": 224
+  },
+  {
+    "asset": "Maps/ElliottSeaTiles",
+    "width": 96,
+    "height": 80
+  },
+  {
+    "asset": "Maps/EmilyDreamscapeTiles",
+    "width": 128,
+    "height": 192
+  },
+  {
+    "asset": "Maps/fall_beach",
+    "width": 272,
+    "height": 496
+  },
+  {
+    "asset": "Maps/fall_island_tilesheet_1",
+    "width": 512,
+    "height": 640
+  },
+  {
+    "asset": "Maps/fall_monsterGraveTiles",
+    "width": 48,
+    "height": 80
+  },
+  {
+    "asset": "Maps/fall_outdoorsTileSheet",
+    "width": 400,
+    "height": 1264
+  },
+  {
+    "asset": "Maps/fall_outdoorsTileSheet2",
+    "width": 256,
+    "height": 1120
+  },
+  {
+    "asset": "Maps/fall_outdoorTileSheet_extra",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/fall_town",
+    "width": 512,
+    "height": 1152
+  },
+  {
+    "asset": "Maps/fall_Waterfalls",
+    "width": 576,
+    "height": 400
+  },
+  {
+    "asset": "Maps/Farm Obelisk",
+    "width": 48,
+    "height": 144
+  },
+  {
+    "asset": "Maps/farmhouse_tiles",
+    "width": 192,
+    "height": 352
+  },
+  {
+    "asset": "Maps/Festivals",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "asset": "Maps/FishingDerbyTiles",
+    "width": 128,
+    "height": 256
+  },
+  {
+    "asset": "Maps/FishingDerbyTiles_international",
+    "width": 128,
+    "height": 256
+  },
+  {
+    "asset": "Maps/floors_2",
+    "width": 256,
+    "height": 64
+  },
+  {
+    "asset": "Maps/HarveyBalloonTiles",
+    "width": 751,
+    "height": 256
+  },
+  {
+    "asset": "Maps/Island_FieldOffice_Tilesheet",
+    "width": 160,
+    "height": 192
+  },
+  {
+    "asset": "Maps/Island_Hut_tilesheet",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/island_tilesheet_1",
+    "width": 512,
+    "height": 1040
+  },
+  {
+    "asset": "Maps/island_tilesheet_2",
+    "width": 512,
+    "height": 128
+  },
+  {
+    "asset": "Maps/JojaRuins_TileSheet",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "asset": "Maps/LeoTreeHouse_Tilesheet",
+    "width": 112,
+    "height": 128
+  },
+  {
+    "asset": "Maps/masteryCaveTilesheet",
+    "width": 240,
+    "height": 256
+  },
+  {
+    "asset": "Maps/mermaid_house_tiles",
+    "width": 144,
+    "height": 208
+  },
+  {
+    "asset": "Maps/Mines/mine",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_dark",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_dark_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_desert",
+    "width": 256,
+    "height": 384
+  },
+  {
+    "asset": "Maps/Mines/mine_desert_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_desert_dark",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_desert_dark_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_dino",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_frost",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_frost_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_frost_dark",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_frost_dark_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_lava",
+    "width": 256,
+    "height": 320
+  },
+  {
+    "asset": "Maps/Mines/mine_lava_dangerous",
+    "width": 256,
+    "height": 320
+  },
+  {
+    "asset": "Maps/Mines/mine_lava_dark",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_lava_dark_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_quarryshaft",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_slime",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/mine_slime_dangerous",
+    "width": 256,
+    "height": 288
+  },
+  {
+    "asset": "Maps/Mines/volcano_caldera",
+    "width": 144,
+    "height": 320
+  },
+  {
+    "asset": "Maps/Mines/volcano_dungeon",
+    "width": 256,
+    "height": 576
+  },
+  {
+    "asset": "Maps/MovieTheaterJoja_TileSheet",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "asset": "Maps/MovieTheaterJoja_TileSheet_international",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "asset": "Maps/MovieTheaterScreen_TileSheet",
+    "width": 320,
+    "height": 256
+  },
+  {
+    "asset": "Maps/MovieTheater_TileSheet",
+    "width": 256,
+    "height": 256
+  },
+  {
+    "asset": "Maps/nightSceneMaru",
+    "width": 480,
+    "height": 528
+  },
+  {
+    "asset": "Maps/nightSceneMaruTrees",
+    "width": 480,
+    "height": 224
+  },
+  {
+    "asset": "Maps/night_market_tilesheet_objects",
+    "width": 1152,
+    "height": 312
+  },
+  {
+    "asset": "Maps/pirates_tilesheet",
+    "width": 304,
+    "height": 160
+  },
+  {
+    "asset": "Maps/qiNutRoom_tilesheet",
+    "width": 224,
+    "height": 176
+  },
+  {
+    "asset": "Maps/samshowtiles",
+    "width": 160,
+    "height": 224
+  },
+  {
+    "asset": "Maps/sebastianMountainTiles",
+    "width": 640,
+    "height": 400
+  },
+  {
+    "asset": "Maps/sebastianRideTiles",
+    "width": 480,
+    "height": 256
+  },
+  {
+    "asset": "Maps/SewerTiles",
+    "width": 128,
+    "height": 176
+  },
+  {
+    "asset": "Maps/spring_beach",
+    "width": 272,
+    "height": 496
+  },
+  {
+    "asset": "Maps/spring_island_tilesheet_1",
+    "width": 512,
+    "height": 640
+  },
+  {
+    "asset": "Maps/spring_monsterGraveTiles",
+    "width": 48,
+    "height": 80
+  },
+  {
+    "asset": "Maps/spring_outdoorsTileSheet",
+    "width": 400,
+    "height": 1264
+  },
+  {
+    "asset": "Maps/spring_outdoorsTileSheet2",
+    "width": 256,
+    "height": 1120
+  },
+  {
+    "asset": "Maps/spring_outdoorTileSheet_extra",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/spring_town",
+    "width": 512,
+    "height": 1152
+  },
+  {
+    "asset": "Maps/spring_Waterfalls",
+    "width": 576,
+    "height": 400
+  },
+  {
+    "asset": "Maps/stadium_tiles",
+    "width": 64,
+    "height": 304
+  },
+  {
+    "asset": "Maps/submarine_tilesheet",
+    "width": 384,
+    "height": 352
+  },
+  {
+    "asset": "Maps/summer_beach",
+    "width": 272,
+    "height": 496
+  },
+  {
+    "asset": "Maps/summer_island_tilesheet_1",
+    "width": 512,
+    "height": 640
+  },
+  {
+    "asset": "Maps/summer_monsterGraveTiles",
+    "width": 48,
+    "height": 80
+  },
+  {
+    "asset": "Maps/summer_outdoorsTileSheet",
+    "width": 400,
+    "height": 1264
+  },
+  {
+    "asset": "Maps/summer_outdoorsTileSheet2",
+    "width": 256,
+    "height": 1120
+  },
+  {
+    "asset": "Maps/summer_outdoorTileSheet_extra",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/summer_town",
+    "width": 512,
+    "height": 1152
+  },
+  {
+    "asset": "Maps/summer_Waterfalls",
+    "width": 576,
+    "height": 400
+  },
+  {
+    "asset": "Maps/townInterior",
+    "width": 512,
+    "height": 1088
+  },
+  {
+    "asset": "Maps/townInterior_2",
+    "width": 512,
+    "height": 656
+  },
+  {
+    "asset": "Maps/wallpapers_2",
+    "width": 256,
+    "height": 96
+  },
+  {
+    "asset": "Maps/walls_and_floors",
+    "width": 256,
+    "height": 688
+  },
+  {
+    "asset": "Maps/winter_beach",
+    "width": 272,
+    "height": 496
+  },
+  {
+    "asset": "Maps/winter_island_tilesheet_1",
+    "width": 512,
+    "height": 640
+  },
+  {
+    "asset": "Maps/winter_monsterGraveTiles",
+    "width": 48,
+    "height": 80
+  },
+  {
+    "asset": "Maps/winter_outdoorsTileSheet",
+    "width": 400,
+    "height": 1264
+  },
+  {
+    "asset": "Maps/winter_outdoorsTileSheet2",
+    "width": 256,
+    "height": 1120
+  },
+  {
+    "asset": "Maps/winter_outdoorTileSheet_extra",
+    "width": 128,
+    "height": 128
+  },
+  {
+    "asset": "Maps/winter_town",
+    "width": 512,
+    "height": 1152
+  },
+  {
+    "asset": "Maps/winter_Waterfalls",
+    "width": 576,
+    "height": 400
+  },
+  {
+    "asset": "Maps/WitchHutTiles",
+    "width": 128,
+    "height": 256
+  },
+  {
+    "asset": "Maps/witchSwampTiles",
+    "width": 128,
+    "height": 256
+  }
+]

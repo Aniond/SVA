@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>0.13.0</Version>
+    <EnableHarmony>true</EnableHarmony>
+    <EnableModDeploy>false</EnableModDeploy>
+    <EnableModZip>false</EnableModZip>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
+    <None Update="manifest.json; artwork.json; assets/**/*.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
+
+
+
+
+
+
+
+
+
+
+
+
+

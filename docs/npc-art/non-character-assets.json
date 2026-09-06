@@ -1,0 +1,22 @@
+{
+  "Maps/island_tilesheet_2": {
+    "classification": "scenery",
+    "reason": "Native sheet visually reviewed: ruins, platforms, barrels, boat, table, vegetation and puzzle tiles; no character sprite.",
+    "evidence": "artifacts/npc-modern/originals/Maps/island_tilesheet_2.png"
+  },
+  "LooseSprites/raccoon_bundle_menu": {
+    "classification": "menu artwork",
+    "reason": "Inventory slots, wooden frame, leaves and menu controls. Raccoon.cs line 134 supplies it as the JunimoNoteMenu skin; the raccoon actor uses separate artwork.",
+    "evidence": "artifacts/npc-modern/game-source/StardewValley.Characters/Raccoon.cs:134"
+  },
+  "Portraits/AnsweringMachine": {
+    "classification": "object portrait",
+    "reason": "Telephone answering-machine object, visually reviewed. Game1.DrawAnsweringMachineDialogue deliberately overrides an absent NPC portrait with this device.",
+    "evidence": "artifacts/npc-modern/game-source/StardewValley/Game1.cs:9586"
+  },
+  "Characters/Grandpa": {
+    "classification": "native placeholder",
+    "reason": "One-pixel placeholder verified by GrandpaStoryAudit. Visible Grandpa uses the separately updated opening scene, spectral sprites and portraits.",
+    "evidence": "artifacts/npc-modern/evidence/grandpa-story-checks.json"
+  }
+}

@@ -1,0 +1,13 @@
+# Special actor artwork routes
+
+These are findings from the installed 1.6.15 game source, not completed artwork.
+
+- Gourmand Frog: IslandFarmCave.resetLocalState creates a 32x32 AnimatedSprite from Characters/Gourmand and assigns a placeholder Portraits/SafariGuy texture. The actual TalkToGourmand path uses Game1.multipleDialogues and a deferred createQuestionDialogue callback, so replacing an NPC portrait alone will not display it. Also cover request success/failure responses and preserve the Gourmand_Yes/No response keys and lock handling. Relevant source: artifacts/npc-modern/game-source/StardewValley.Locations/IslandFarmCave.cs.
+- Welwick: the TV Fortune selection animates two 42x28 frames in LooseSprites/Cursors starting at (540,305). The forecast uses a static 42x28 frame at (624,305), with separate fortune-symbol overlays. These embedded regions need isolated patches; do not replace the whole shared cursor sheet. Dialogue uses drawObjectDialogue after getFortuneTellerOpening/getFortuneForecast, so a new portrait needs attachment to the TV route. Relevant source: artifacts/npc-modern/game-source/StardewValley.Objects/TV.cs, selectChannel and proceedToNextScene.
+- Gil: AdventureGuild creates an NPC with no AnimatedSprite at (-1000,-1000), but loads Portraits/Gil. Its reward and snoring text already uses native NPC dialogue, so a portrait replacement should display without an auxiliary panel. The visible guild sprite is embedded elsewhere and still needs tile/map reconciliation. Relevant source: artifacts/npc-modern/game-source/StardewValley.Locations/AdventureGuild.cs.
+
+Extracted and visually inspected shared images: originals/LooseSprites/Cursors.png (704x2256) and originals/Maps/townInterior.png (512x1088). Welwick's three adjacent TV frames are confirmed in the 126x28 strip at (540,305); enlarged reference is Welwick-tv-reference.png. townInterior contains three Gil-in-rocking-chair poses; candidate 32x32 regions are (176,624), (176,656), and (208,656). Confirm their exact map tile usage with the new guild-embedded-tiles.json audit export before changing them. The candidate reference crop is guild-tile-candidate.png. Nearby bed art must remain untouched.
+
+Keep all these actors in the full coverage goal. Missing Characters or Portraits filenames are not evidence that the actor can be excluded.
+
+Live map confirmation: guild-embedded-tiles.json identifies Gil at map (11,11)-(12,12), using townInterior tile indices 1323,1324,1355,1356 on Front/Buildings layers. This confirms the 32x32 region (176,656) for the default visible pose. Other rocking-chair cells are visible in the texture but their animation/alternate usage still needs confirmation.
