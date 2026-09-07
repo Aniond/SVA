@@ -7,6 +7,9 @@ $registry = Get-Content (Join-Path $source 'artwork.json') -Raw | ConvertFrom-Js
 $stage = Join-Path $repo ('artifacts/package-staging/' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff') + '/AbigailModern')
 New-Item -ItemType Directory -Path $stage -Force | Out-Null
 $files = @('manifest.json', 'artwork.json', 'README.md') + @($registry.File | Sort-Object -Unique)
+. (Join-Path $PSScriptRoot 'get-player-hd-files.ps1')
+$files += @(Get-PlayerHdFiles $source)
+$files += @(Get-ModernClothingFiles $source)
 foreach ($relative in $files) {
     if ([IO.Path]::IsPathRooted($relative) -or ($relative -split '[/\\]') -contains '..') { throw "Unsafe asset path: $relative" }
     $destination = Join-Path $stage $relative

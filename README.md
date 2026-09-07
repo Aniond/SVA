@@ -1,6 +1,6 @@
 # Stardew Valley Alive (SVA)
 
-Solace gameplay systems and the NPC Modern artwork overhaul for Stardew Valley. The current artwork release is 0.13.0, including the approved translucent blue UI and interface icons. See [UI preview and validation](docs/terrain-art/ui-progress.md), [artwork progress](docs/terrain-art/progress.md), and [artwork mod instructions](src/AbigailModern/README.md).
+Solace gameplay systems and the NPC Modern artwork overhaul for Stardew Valley. The current artwork release is 0.22.0, including monsters and wildlife, items, soil and flooring, seasonal boat journeys, and selected minigame and special-scene artwork. See the [current coverage report](docs/terrain-art/asset-remake-audit-current.md) for completed work and remaining exclusions, and the [artwork mod instructions](src/AbigailModern/README.md).
 
 Source, artwork and tests are included. Game binaries, local configuration, saves, build outputs and generated audit evidence are excluded. Building the game-facing projects requires a local Stardew Valley and SMAPI installation.
 
@@ -19,6 +19,10 @@ A single-player SMAPI mod for Stardew Valley **1.6.15**, requiring **SMAPI 4.5.2
 The journal shows a labeled simulation preview while disabled. Disabling also takes effect next morning. If you quit without saving, pending settings are discarded with the rest of that unsaved day.
 
 ## What changes
+
+### Emily and character personalities (0.5.0)
+
+Emily adds creative friendship activities and custom tailoring with a separate preview and crafting choice. Abigail, Haley, Penny, Alex and Maru have refined voices and structured portrait reactions; Penny receives the native state of Pam's home. Existing quests and relationship progress remain intact. See [Emily and tailoring](docs/testing-emily-tailoring.md) and [character profiles](docs/testing-character-profiles.md) for behavior and player checks.
 
 ### Global relationships (0.2.0)
 
@@ -186,4 +190,3 @@ F6 and Abigail’s Social-page entry open her branching relationship tree. Talk 
 ## Shared experiences (0.1.23)
 
 Meaningful tree actions now become lasting shared memories. Gemini can connect studies, preparations, supplies, flute breaks, promises and repairs with later conversations. The event stays verified; related conversation stays attributed speech. F6 → History includes these memories. Current perk availability and cooling off still control actions, and recalling a memory awards no trust or items.
-

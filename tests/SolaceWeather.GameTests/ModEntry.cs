@@ -41,12 +41,15 @@ public sealed partial class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         instance = this;
+        helper.Events.Specialized.LoadStageChanged += (_, e) => { if (e.NewStage == StardewModdingAPI.Enums.LoadStage.SaveParsed) tailoringLoadEvents.Add("SaveParsed"); };
+        new Harmony(ModManifest.UniqueID + ".TailoringAudit").Patch(AccessTools.Method(typeof(SaveGame), "loadDataToFarmer"), prefix: new HarmonyMethod(typeof(ModEntry), nameof(BeforeFarmerRestore)));
         helper.Events.GameLoop.UpdateTicked += (_, _) =>
         {
             if (muteTestingAudio)
                 Microsoft.Xna.Framework.Audio.SoundEffect.MasterVolume = 0f;
         };
         helper.Events.GameLoop.UpdateTicked += (_, _) => WatchAiCheck();
+        helper.Events.GameLoop.UpdateTicked += (_, _) => WatchChatter();
         captureAfterDraw = () =>
         {
             drawCount++;
@@ -83,6 +86,82 @@ public sealed partial class ModEntry : Mod
             {
                 switch (request)
                 {
+                    case "profilechecks": ProfileNativeChecks(); break;
+                    case "emilystate": EmilyState(); break;
+                    case "emilystage": EmilyStage(); break;
+                    case "emilypromise": EmilyPromise(); break;
+                    case "emilyoffer": EmilyOffer(); break;
+                    case "emilyaccept": EmilyAccept(); break;
+                    case "emilymeet": EmilyMeet(); break;
+                    case "emilytalk": EmilyTalk(); break;
+                    case "emilyadvance": EmilyAdvance(); break;
+                    case "emilylive": EmilyLive(); break;
+                    case "emilyfixture": EmilyFixture(); break;
+                    case "emilymove": EmilyMovementStart(); break;
+                    case "emilymoveadvance": EmilyMovementAdvance(); break;
+                    case "emilytree": Call(Emily(), "OpenTree"); captureRequested = true; captureDelay = 10; break;
+                    case "tailoringgenerate": TailoringGenerateFixture(); break;
+                    case "tailoringcraft": TailoringCraftChecks(); break;
+                    case "tailoringstate": TailoringSnapshot(); break;
+                    case "tailoringnext": TailoringNextDay(); break;
+                    case "tailoringrender": TailoringRender(); break;
+                    case "tailoringrecovery": TailoringRecoveryChecks(); break;
+                    case "tailoringisolation": TailoringIsolationChecks(); break;
+                    case "haleystate": HaleyState(); break;
+                    case "haleystage": HaleyStage(); break;
+                    case "haleypromise": HaleyPromise(); break;
+                    case "haleyoffer": HaleyOffer(); break;
+                    case "haleyaccept": HaleyAccept(); break;
+                    case "haleymeet": HaleyMeet(); break;
+                    case "haleytalk": HaleyTalk(); break;
+                    case "haleyadvance": HaleyAdvance(); break;
+                    case "haleylive": HaleyLive(); break;
+                    case "haleytree": HaleyTree(); break;
+                    case "haleyguards": HaleyGuards(); break;
+                    case "haleyrestchecks": HaleyRestChecks(); break;
+                    case "fashioncheck": FashionCheck(); break;
+                    case "modernfashion": ModernFashionStage(); break;
+                    case "nativefashion": NativeFashionCheck(); break;
+                    case "socialstages": SocialStageCapture(); break;
+                    case "socialnavigation": SocialNavigationChecks(); break;
+                    case "haleyhigh": Haley(); if (!Game1.player.friendshipData.ContainsKey("Haley")) Game1.player.friendshipData.Add("Haley", new Friendship()); Game1.player.friendshipData["Haley"].Points = 2500; break;
+                    case "haleyphotoguards": HaleyPhotoGuards(); break;
+                    case "dialogueadvance": Phone(); if (Game1.activeClickableMenu is StardewValley.Menus.DialogueBox dialogue) dialogue.receiveLeftClick(dialogue.xPositionOnScreen + dialogue.width / 2, dialogue.yPositionOnScreen + dialogue.height / 2); break;
+                    case "cemeterystate": CemeteryState(); break;
+                    case "cemeterychecks": CemeteryChecks(); break;
+                    case "cemeterylive": CemeteryLive(); break;
+                    case "cemeterystage": CemeteryStage(); break;
+                    case "cemeteryoffer": CemeteryOffer(); break;
+                    case "cemeteryaccept": CemeteryAccept(); break;
+                    case "cemeterymeet": CemeteryMeet(); break;
+                    case "cemeterytalk": CemeteryTalk(); break;
+                    case "cemeteryadvance": CemeteryAdvance(); break;
+                    case "cemeterycancel": CemeteryCancel(); break;
+                    case "chatterstage": ChatterStage(); break;
+                    case "chatterchecks": ChatterChecks(); break;
+                    case "chatterlive": ChatterLive(); break;
+                    case "chatterreplay": ChatterReplay(); break;
+                    case "chattersleep": Chatter(); if (Game1.currentLocation is not StardewValley.Locations.FarmHouse) throw new InvalidOperationException("Move to the native farmhouse first."); Game1.player.isInBed.Value = true; Game1.exitActiveMenu(); Game1.currentLocation.answerDialogueAction("Sleep_Yes", null); break;
+                    case "chatterstate": ChatterState(); break;
+                    case "chatterhome": Chatter(); TrustBed(); break;
+                    case "phonechecks": PhoneChecks(); break;
+                    case "phonecapture": PhoneCapture(); break;
+                    case "phonecompact": PhoneCompact(); break;
+                    case "phoneai": PhoneAi(false); break;
+                    case "phoneshortcut": PhoneAi(true); break;
+                    case "phoneinitiative": PhoneInitiative(); break;
+                    case "phonestate": PhoneSnapshot(); break;
+                    case "phoneclose": Call(Phone(), "Close"); break;
+                    case "phonemic": PhoneMic(); break;
+                    case "phoneclick": PhoneClick(); break;
+                    case "phoneexchangechecks": PhoneExchangeChecks(); break;
+                    case "phonenumber": PhoneNumber(); break;
+                    case "phonesamnumber": PhoneNumber("Sam"); break;
+                    case "phoneaccept": PhoneAnswer(true); break;
+                    case "phonedecline": PhoneAnswer(false); break;
+                    case "phoneblockstage": Phone(); Game1.player.friendshipData["Sam"].Status = FriendshipStatus.Divorced; break;
+                    case "phonesamchat": Call(Phone(), "Open"); Call(Game1.activeClickableMenu, "Select", "Sam"); captureRequested = true; captureDelay = 3; break;
+                    case "phonedropdown": Call(Game1.activeClickableMenu, "ToggleDropdown"); captureRequested = true; captureDelay = 3; break;
                     case "load": Game1.currentMinigame = null; Game1.exitActiveMenu(); SaveGame.Load("Solace_448236644"); break;
                     case "quit": RestoreUiScale(); RestoreFocusPause(); Game1.game1.Exit(); break;
                     case "status": WriteStatus(); break;
@@ -594,9 +673,4 @@ public sealed partial class ModEntry : Mod
         WriteStatus();
     }
 }
-
-
-
-
-
 

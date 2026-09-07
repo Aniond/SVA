@@ -41,6 +41,14 @@ internal sealed class RomanceService
     internal RomanceDates Dates { get; }
     internal RomanceNative Native { get; }
     internal Action<NPC>? OpenConversation { get; set; }
+    internal Func<string, object>? PhoneContactContext { get; set; }
+    internal Func<string, object>? PublicChatterContext { get; set; }
+    internal Func<string, object>? OutingContext { get; set; }
+    internal Func<string, bool, object>? CharacterLifeContext { get; set; }
+    internal Func<string, bool, object>? FashionContext { get; set; }
+    internal Action<string, ConversationReply, string>? PhoneReplyRemembered { get; set; }
+    internal Action<string>? OpenCharacterTree { get; set; }
+    internal AbigailMemory? CharacterMemory(string name) => Ready && RomanceRules.IsCandidate(name) ? Memory(name) : null;
 
     internal RomanceService(IModHelper helper, IMonitor monitor, ModConfig config, AbigailRelationship abigail, string modId)
     {
@@ -175,14 +183,29 @@ internal sealed class RomanceService
     }
 
     internal object GetContext(string name, string message)
+        => BuildContext(name, message, false);
+
+    internal object GetPhoneContext(string name, string message)
+        => BuildContext(name, message, true);
+
+    private object BuildContext(string name, string message, bool phone)
     {
         if (!Ready || !RomanceRules.IsCandidate(name)) return new JsonObject { ["Unavailable"] = true };
         var memory = Memory(name);
-        JsonObject context = name == "Abigail" ? JsonSerializer.SerializeToNode(abigail.GetConversationContext(message))!.AsObject() : new();
+        JsonObject context = name == "Abigail" ? JsonSerializer.SerializeToNode(phone ? abigail.GetPhoneContext(message) : abigail.GetConversationContext(message))!.AsObject() : new();
         var c = State.Characters.GetValueOrDefault(name);
         var experiences = memory.Experiences.Select(message, Today);
-        selectedMemories[name] = experiences.Select(e => e.Id).ToHashSet();
+        if (!phone) selectedMemories[name] = experiences.Select(e => e.Id).ToHashSet();
         context["Personality"] = JsonSerializer.SerializeToNode(RomanceProfiles.Get(name));
+        if (name == "Penny") context["FamilyHome"] = JsonSerializer.SerializeToNode(new {
+            PamHouseUpgraded = Game1.MasterPlayer.mailReceived.Contains("pamHouseUpgrade"),
+            PamHome = Game1.MasterPlayer.mailReceived.Contains("pamHouseUpgrade") ? "upgraded house" : "trailer",
+            Rule = "This identifies Pam's current home, not proof Penny still lives there after marriage or that the farmer paid for the upgrade." });
+        if (CharacterLifeContext != null && name is "Haley" or "Emily") context[name + "Life"] = JsonSerializer.SerializeToNode(CharacterLifeContext(name, phone));
+        if (FashionContext != null) context["Fashion"] = JsonSerializer.SerializeToNode(FashionContext(name, phone));
+        if (OutingContext != null) context["AvailableOuting"] = JsonSerializer.SerializeToNode(OutingContext(name));
+        if (PublicChatterContext != null) context["WitnessedPublicChatter"] = JsonSerializer.SerializeToNode(PublicChatterContext(name));
+        if (PhoneContactContext != null) context["PhoneContact"] = JsonSerializer.SerializeToNode(PhoneContactContext(name));
         context["RomanceJourney"] = JsonSerializer.SerializeToNode(new
         {
             Stage = State.GetJourney(name, Today).BondStage,
@@ -233,6 +256,41 @@ internal sealed class RomanceService
             memory.Experiences.Reflect(reply.RecalledExperienceId!, Today, message, reply.Reply);
         if (!string.IsNullOrEmpty(reply.AskedTopic)) memory.Personal.MarkAsked(reply.AskedTopic, Today);
         if (reply.SpontaneousRecall) memory.Personal.LastFollowUpDay = Today;
+    }
+
+    internal void RememberPhoneReply(string name, string message, ConversationReply reply, string snapshot)
+    {
+        if (!Ready || !RomanceRules.IsCandidate(name)) return;
+        // Phone requests can finish while an in-person conversation has selected other context.
+        // Validate recalls against this request's snapshot, never those mutable selections.
+        var context = JsonNode.Parse(snapshot)?["Relationship"];
+        var memory = Memory(name);
+        if (message.Length > 0) memory.Personal.Apply(Today, message, reply.Memories);
+        memory.Exchanges.Add(new() { Day = Today, Farmer = message, Reply = reply.Reply });
+        memory.Exchanges = memory.Exchanges.TakeLast(32).ToList();
+        string? offeredTopic = context?["OfferedFollowUp"]?["Topic"]?.GetValue<string>();
+        if (!string.IsNullOrEmpty(reply.AskedTopic) && reply.AskedTopic == offeredTopic)
+        {
+            memory.Personal.MarkAsked(reply.AskedTopic, Today);
+            if (name == "Abigail")
+            {
+                memory.Personal.LastFollowUpDay = Today;
+                memory.Promises.LastReminderDay = Today;
+            }
+        }
+        bool recordedRecall = !string.IsNullOrEmpty(reply.RecalledExperienceId) && context?["SharedExperiences"] is JsonArray experiences
+            && experiences.Any(e => e?["Id"]?.GetValue<string>() == reply.RecalledExperienceId);
+        if (recordedRecall)
+        {
+            memory.Experiences.Reflect(reply.RecalledExperienceId!, Today, message, reply.Reply);
+            if (reply.SpontaneousRecall)
+            {
+                memory.Personal.LastFollowUpDay = Today;
+                if (name == "Abigail") memory.Promises.LastReminderDay = Today;
+            }
+        }
+        // Texting deliberately cannot create an offered quest or execute a relationship choice.
+        PhoneReplyRemembered?.Invoke(name, reply, snapshot);
     }
     internal string Fallback(string name)
     {
@@ -410,7 +468,7 @@ internal sealed class RomanceService
     {
         if (!Ready) return;
         selected = RomanceRules.IsCandidate(name) ? name : "Abigail";
-        Game1.activeClickableMenu = new RomanceJournalMenu(State, selected, Describe, () => abigail.TreeService?.OpenTree());
+        Game1.activeClickableMenu = new RomanceJournalMenu(State, selected, Describe, () => { if (OpenCharacterTree != null) OpenCharacterTree(selected); else abigail.TreeService?.OpenTree(); });
     }
     internal string Describe(string name)
     {

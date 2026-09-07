@@ -4,8 +4,15 @@ namespace SolaceWeather;
 
 public sealed class ModConfig
 {
+    public bool EnableTownChatter { get; set; } = true;
+    public bool EnableFashionComments { get; set; } = true;
+    public bool EnablePhone { get; set; } = true;
+    public bool EnablePhoneInitiative { get; set; } = true;
+    public bool EnableAutomaticPhoneBlocking { get; set; } = true;
+    public SButton PhoneKey { get; set; } = SButton.F10;
     public bool EnableAbigailMemory { get; set; } = true;
     public bool EnableAbigailAi { get; set; } = true;
+    public bool EnablePlayerPortraitGeneration { get; set; } = true;
     public string AbigailQuestTestFarm { get; set; } = "";
     public SButton AbigailTalkKey { get; set; } = SButton.Space;
     public string GeminiModel { get; set; } = "gemini-3.8-flash";
@@ -27,4 +34,3 @@ public sealed class ModConfig
     public bool EnableMachineIndicators { get; set; } = true;
     public bool EnableNearbyCrafting { get; set; } = true;
 }
-

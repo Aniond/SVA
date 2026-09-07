@@ -37,7 +37,7 @@ var brown = Ink(new Color(86,22,12));
 Check(brown.R > 200 && brown.G > 200 && brown.B >= brown.R, "native brown body text uses pale neutral ink");
 Call("ExitScope", outer[0], null);
 Check(type!.GetMethod("PortraitDrawMethods", BindingFlags.NonPublic | BindingFlags.Static) != null, "custom portrait text scope discovery exists");
-var production = Assembly.LoadFrom(Path.GetFullPath("src/AbigailModern/bin/Release/net6.0/AbigailModern.dll"));
+var production = Assembly.LoadFrom(Path.GetFullPath("src/AbigailModern/bin/Debug/net6.0/AbigailModern.dll"));
 var portraitMethods = ((IEnumerable<MethodInfo>)Call("PortraitDrawMethods", production)!).ToArray();
 Check(new[]{"PortraitPanel", "ChildPortraits", "TrashBearPortrait"}.All(name => portraitMethods.Any(m => m.DeclaringType!.Name == name)), "all existing portrait name-label helpers receive scopes");
 Check(portraitMethods.All(m => m.Name == "Draw" && m.DeclaringType!.Name != "StormHail"), "portrait scope discovery excludes world drawing");
@@ -90,4 +90,29 @@ object?[] widgetScope = { buttonMethod, null }; Call("EnterCustomScope", widgetS
 Check(Ink(dark).R > 200, "post-menu custom button text receives light ink");
 Call("ExitCustomScope", widgetScope[1], new Exception("fixture"));
 Check(Ink(dark) == dark && type!.GetField("surfaceContext", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null) == null, "custom widget exceptions restore both text and surface scopes");
+Check(type!.GetMethod("ToolbarShortcutPosition", BindingFlags.NonPublic | BindingFlags.Static) != null, "toolbar shortcut centering policy exists");
+Vector2 Shortcut(Vector2 at, Vector2 size) => (Vector2)Call("ToolbarShortcutPosition", at, size)!;
+foreach(int viewportWidth in new[]{960,1280,1920}) foreach(int viewportHeight in new[]{720,1080}) foreach(bool topDock in new[]{false,true}) foreach(float uiScale in new[]{.75f,1f,1.25f,1.5f})
+{
+    float slotY=(topDock?112:viewportHeight)-88;
+    for(int slot=0;slot<12;slot++)
+    {
+        float slotX=viewportWidth/2f-384+slot*64;
+        var nativeAt=new Vector2(slotX+4,slotY-8);
+        var labelSize=new Vector2(slot==5?7:6,20);
+        var centered=Shortcut(nativeAt,labelSize);
+        if(Math.Abs(centered.X+labelSize.X/2-(slotX+32))>.51f || centered.Y!=nativeAt.Y+2
+            || (centered.X-slotX)*uiScale<0 || (centered.X+labelSize.X-slotX)*uiScale>64*uiScale)
+            throw new Exception("Toolbar label no longer centered/in native top band");
+    }
+}
+Check(true, "all twelve shortcut positions fit top/bottom slots at 75/100/125/150 percent UI scales");
+var nativeToolbar=typeof(StardewValley.Menus.Toolbar).GetMethod("draw", new[] { typeof(Microsoft.Xna.Framework.Graphics.SpriteBatch) })!;
+AppDomain.CurrentDomain.AssemblyResolve += (_, args) => new AssemblyName(args.Name).Name == "MonoMod.Common"
+    ? Assembly.LoadFrom(Path.Combine(AppContext.BaseDirectory, "MonoMod.Common.dll")) : null;
+var instructions=HarmonyLib.PatchProcessor.GetOriginalInstructions(nativeToolbar).ToList();
+var rewritten=((IEnumerable<HarmonyLib.CodeInstruction>)Call("ToolbarShortcutTranspiler",instructions)!).ToList();
+Check(rewritten.Count==instructions.Count && rewritten.Zip(instructions).Count(pair=>!Equals(pair.First.operand,pair.Second.operand))==1,
+    "native toolbar patch changes only its shortcut text call");
+Check(rewritten.Any(i=>i.operand is MethodInfo m && m.Name=="DrawToolbarShortcut"), "toolbar routes only shortcut labels through dedicated renderer");
 

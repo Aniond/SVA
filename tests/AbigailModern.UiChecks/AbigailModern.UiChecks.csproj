@@ -5,6 +5,7 @@
 <Reference Include="Stardew Valley"><HintPath>$(GameDir)/Stardew Valley.dll</HintPath></Reference>
 <Reference Include="StardewModdingAPI"><HintPath>$(GameDir)/StardewModdingAPI.dll</HintPath></Reference>
 <Reference Include="0Harmony"><HintPath>$(GameDir)/smapi-internal/0Harmony.dll</HintPath></Reference>
+<Reference Include="MonoMod.Common"><HintPath>$(GameDir)/smapi-internal/MonoMod.Common.dll</HintPath></Reference>
 <Compile Include="../../src/AbigailModern/BlueUiText.cs" Condition="Exists('../../src/AbigailModern/BlueUiText.cs')" Link="BlueUiText.cs"/>
 </ItemGroup></Project>
 

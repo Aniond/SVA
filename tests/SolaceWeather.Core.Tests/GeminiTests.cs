@@ -5,6 +5,34 @@ namespace SolaceWeather.Core.Tests;
 
 public class GeminiTests
 {
+    [Theory]
+    [InlineData("Abigail", false, "cemetery", "cemetery")]
+    [InlineData("Sam", false, "cemetery", "")]
+    [InlineData("Abigail", true, "cemetery", "")]
+    [InlineData("Abigail", false, "spawn-monster", "")]
+    [InlineData("Haley", false, "haley-photo", "haley-photo")]
+    [InlineData("Haley", false, "haley-sunflower", "haley-sunflower")]
+    [InlineData("Haley", true, "haley-photo", "")]
+    [InlineData("Haley", false, "cemetery", "")]
+    [InlineData("Abigail", false, "haley-photo", "")]
+    [InlineData("Emily", false, "emily-cloth", "emily-cloth")]
+    [InlineData("Emily", false, "emily-design", "emily-design")]
+    [InlineData("Emily", true, "emily-design", "")]
+    [InlineData("Emily", false, "haley-photo", "")]
+    [InlineData("Haley", false, "emily-cloth", "")]
+    public async Task OutingProposalsAreRestrictedToSupportedInPersonTemplate(string name, bool phone, string proposal, string expected)
+    {
+        string structured = System.Text.Json.JsonSerializer.Serialize(new { reply = "Let's investigate.", questRequest = proposal });
+        string envelope = System.Text.Json.JsonSerializer.Serialize(new { candidates = new[] {
+            new { finishReason = "STOP", content = new { parts = new[] { new { text = structured } } } }
+        } });
+        using var http = new HttpClient(new Handler(HttpStatusCode.OK, envelope));
+        var client = new GeminiConversation(http);
+        var reply = phone
+            ? await client.TextForCharacter("test", "gemini-3.8-flash", "{}", "Hi", name, false, CancellationToken.None)
+            : await client.ReplyForCharacter("test", "gemini-3.8-flash", "{}", "Hi", name, CancellationToken.None);
+        Assert.Equal(expected, reply.QuestRequest);
+    }
     [Fact]
     public async Task StructuredReplySeparatesSpeechFromMemoryProposals()
     {

@@ -1,0 +1,343 @@
+{
+  "SchemaVersion": 1,
+  "Textures": [
+    {
+      "Name": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "File": "assets/clothing/modern-shirts.png",
+      "Width": 256,
+      "Height": 32
+    },
+    {
+      "Name": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "File": "assets/clothing/modern-pants.png",
+      "Width": 1152,
+      "Height": 688
+    }
+  ],
+  "Items": [
+    {
+      "Id": "David.AbigailModern_Modern_WorkdayDenim_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Denim Layer Jacket",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 0,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "65 100 140",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "workwear",
+          "denim"
+        ],
+        "PaletteTags": [
+          "indigo"
+        ],
+        "Formality": 1,
+        "Practicality": 3,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_WorkdayDenim_Pants",
+      "Slot": "pants",
+      "DisplayName": "Charcoal Work Jeans",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 0,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "76 79 83",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "workwear",
+          "denim"
+        ],
+        "PaletteTags": [
+          "charcoal"
+        ],
+        "Formality": 1,
+        "Practicality": 3,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_EverydayHoodie_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Sage Hoodie",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 1,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "145 169 128",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "casual",
+          "relaxed"
+        ],
+        "PaletteTags": [
+          "sage"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_EverydayHoodie_Pants",
+      "Slot": "pants",
+      "DisplayName": "Black Tapered Jeans",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 1,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "56 59 62",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "casual",
+          "relaxed"
+        ],
+        "PaletteTags": [
+          "black"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_CityLayers_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Charcoal Zip Jacket",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 2,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "74 78 87",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "urban",
+          "layered"
+        ],
+        "PaletteTags": [
+          "charcoal"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_CityLayers_Pants",
+      "Slot": "pants",
+      "DisplayName": "Blue Straight Jeans",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 2,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "95 128 169",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "urban",
+          "layered"
+        ],
+        "PaletteTags": [
+          "blue"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_WeekendColor_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Coral Pocket Tee",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 3,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "218 127 103",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "casual",
+          "colorful"
+        ],
+        "PaletteTags": [
+          "coral"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 2
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_WeekendColor_Pants",
+      "Slot": "pants",
+      "DisplayName": "Stone Relaxed Trousers",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 3,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "206 195 173",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "casual",
+          "colorful"
+        ],
+        "PaletteTags": [
+          "stone"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 2
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_CleanMonochrome_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Black Crewneck",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 4,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "64 67 72",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "minimal",
+          "monochrome"
+        ],
+        "PaletteTags": [
+          "black"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_CleanMonochrome_Pants",
+      "Slot": "pants",
+      "DisplayName": "Washed Gray Jeans",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 4,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "131 134 139",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "minimal",
+          "monochrome"
+        ],
+        "PaletteTags": [
+          "gray"
+        ],
+        "Formality": 1,
+        "Practicality": 2,
+        "Statement": 1
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_UtilityCasual_Shirt",
+      "Slot": "shirt",
+      "DisplayName": "Ochre Overshirt",
+      "Description": "A modern, dyeable top for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "SpriteIndex": 5,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "206 150 60",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "shirt",
+        "FashionValue": 60,
+        "StyleTags": [
+          "utility",
+          "workwear"
+        ],
+        "PaletteTags": [
+          "ochre"
+        ],
+        "Formality": 1,
+        "Practicality": 3,
+        "Statement": 2
+      }
+    },
+    {
+      "Id": "David.AbigailModern_Modern_UtilityCasual_Pants",
+      "Slot": "pants",
+      "DisplayName": "Olive Cargo Trousers",
+      "Description": "A modern, dyeable pair of trousers for everyday life in the valley.",
+      "Texture": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "SpriteIndex": 5,
+      "Dyeable": true,
+      "HasSleeves": true,
+      "DefaultColor": "121 127 83",
+      "Price": 1000,
+      "Shop": "Sandy",
+      "Fashion": {
+        "Slot": "pants",
+        "FashionValue": 60,
+        "StyleTags": [
+          "utility",
+          "workwear"
+        ],
+        "PaletteTags": [
+          "olive"
+        ],
+        "Formality": 1,
+        "Practicality": 3,
+        "Statement": 2
+      }
+    }
+  ]
+}

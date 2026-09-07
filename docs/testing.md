@@ -2,6 +2,10 @@
 
 Target: Stardew Valley 1.6.15 / SMAPI 4.5.2, Windows, solo play.
 
+## Emily creative friendship and custom tailoring
+
+See [Emily and tailoring verification](testing-emily-tailoring.md) for the owner handoff evidence, save-contained clothing behavior, and remaining player checks. Combined integration validation is recorded separately from the earlier disposable-farm results.
+
 ## Global romance 0.2.0
 
 - Release and native harness builds succeeded with zero warnings/errors. All 164 core tests passed. The final native run passed 280 checks: global ownership/migration (34), native relationship transactions (16), date rules (22), actual scenes and twelve-character availability (31), witnesses/gossip (8), conversation ownership/portrait mappings (91), weather travel (2), delivered warnings (9), and existing Abigail promises/tree/memories (67). Evidence: `artifacts/romance-final-native-summary-0.2.0.json` and `artifacts/smapi-romance-final-checks-0.2.0.log`.
@@ -198,3 +202,7 @@ A native overnight save and full restart preserved ten experience groups, includ
 Evidence: artifacts/experience-tests-0.1.23/*.trx, experience-results-0.1.23.json, experience-tree-regression-0.1.23.json, experience-gemini-0.1.23.json, experience-overnight-0.1.23.json, smapi-experiences-0.1.23.log.
 
 Remaining player checks: whether memories feel naturally timed over longer play, repeated-topic behavior across several days, non-English retrieval, and preferred UI scales when reading longer history entries. Retrieval uses authored topics and matching words, not a semantic database. Events remain permanent within the authored experience groups; each group retains four recent related exchanges and counts distinct recorded days. No unrelated world-event tracking or ordinary gift-item tracking was added.
+
+## Character profile verification
+
+See [character profile verification](testing-character-profiles.md) for expression routing, character context and remaining player checks.

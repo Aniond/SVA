@@ -5,10 +5,11 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 using SolaceWeather.Core;
+using System.Reflection.Emit;
 
 namespace SolaceWeather.Relationships;
 
-/// <summary>Changes candidate presentation only. Native friendship values are never edited.</summary>
+/// <summary>Names replace NPC heart displays; candidate journal links remain unchanged. Native friendship values are never edited.</summary>
 internal static class RelationshipSocialEntry
 {
     private static Func<bool>? ready;
@@ -39,6 +40,8 @@ internal static class RelationshipSocialEntry
             failed = false;
             harmony.Patch(heart, prefix: new HarmonyMethod(typeof(RelationshipSocialEntry), nameof(BeforeHeart)));
             harmony.Patch(click, prefix: new HarmonyMethod(typeof(RelationshipSocialEntry), nameof(BeforeClick)));
+            harmony.Patch(AccessTools.Method(typeof(SocialPage), nameof(SocialPage.drawNPCSlot)),
+                transpiler: new HarmonyMethod(typeof(RelationshipSocialEntry), nameof(PortraitDraw)));
         }
         catch (Exception ex)
         {
@@ -46,6 +49,45 @@ internal static class RelationshipSocialEntry
             failed = true;
             monitor.Log($"The relationship Social-page links were skipped safely: {ex.Message}. Use F6 for the journal.", LogLevel.Warn);
         }
+    }
+
+    private static IEnumerable<CodeInstruction> PortraitDraw(IEnumerable<CodeInstruction> instructions)
+    {
+        var draw = AccessTools.Method(typeof(ClickableTextureComponent), nameof(ClickableTextureComponent.draw), new[] { typeof(SpriteBatch) });
+        var replacement = AccessTools.Method(typeof(RelationshipSocialEntry), nameof(DrawPortrait));
+        int replaced = 0;
+        foreach (var instruction in instructions)
+        {
+            if (!instruction.Calls(draw)) { yield return instruction; continue; }
+            replaced++;
+            var page = new CodeInstruction(OpCodes.Ldarg_0);
+            page.labels.AddRange(instruction.labels); page.blocks.AddRange(instruction.blocks);
+            yield return page;
+            yield return new CodeInstruction(OpCodes.Ldarg_2);
+            yield return new CodeInstruction(OpCodes.Call, replacement);
+        }
+        if (replaced != 1) throw new InvalidOperationException("Expected one Social-page character drawing call.");
+    }
+
+    private static void DrawPortrait(ClickableTextureComponent original, SpriteBatch b, SocialPage page, int index)
+    {
+        if (!failed && ready?.Invoke() == true && index >= 0 && index < page.SocialEntries.Count
+            && page.SocialEntries[index].Character is NPC npc)
+        {
+            try
+            {
+                if (npc.Portrait is { Width: >= 64, Height: >= 64 } portrait)
+                {
+                    // A square headshot fits the existing avatar column without moving its hit targets.
+                    var bounds = new Rectangle(original.bounds.X, original.bounds.Y + 6, 72, 72);
+                    b.Draw(Game1.staminaRect, new Rectangle(bounds.X - 2, bounds.Y - 2, 76, 76), new Color(103, 169, 201));
+                    b.Draw(portrait, bounds, new Rectangle(0, 0, 64, 64), Color.White);
+                    return;
+                }
+            }
+            catch { /* Missing or invalid portraits retain the native avatar. */ }
+        }
+        original.draw(b);
     }
 
     private static void Disable(Exception ex)
@@ -56,7 +98,7 @@ internal static class RelationshipSocialEntry
 
     private static bool BeforeHeart(SocialPage __instance, SpriteBatch b, int npcIndex, SocialPage.SocialEntry entry, int hearts)
     {
-        if (RomanceProfiles.Get(entry.InternalName) == null || entry.IsPlayer || failed) return true;
+        if (entry.IsPlayer || failed) return true;
         try
         {
             if (ready?.Invoke() != true || npcIndex < 0 || npcIndex >= __instance.sprites.Count) return true;

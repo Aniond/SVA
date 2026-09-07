@@ -5,6 +5,7 @@
     <EnableModZip>false</EnableModZip>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony"><HintPath>$(GamePath)/smapi-internal/0Harmony.dll</HintPath><Private>false</Private></Reference>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
     <None Update="manifest.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

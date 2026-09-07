@@ -40,6 +40,19 @@ public sealed class ModEntry : Mod
                         case "tree-variants": TreeVariantsAudit.Run(helper, Monitor); break;
                         case "locations": LocationsAudit.Run(helper, Monitor); break;
                         case "blue-ui": BlueUiAudit.Run(helper, Monitor); break;
+                        case "animal-contracts": AnimalsAudit.Export(helper, Monitor); break;
+                        case "item-contracts": ItemsAudit.Export(helper, Monitor); break;
+                        case "scenes": ScenesAudit.Run(helper, Monitor); break;
+                        case "soil-floor": SoilFloorAudit.Run(helper, Monitor); break;
+                        case "items": ItemsAudit.Run(helper, Monitor); break;
+                        case "monsters-wildlife": MonstersWildlifeAudit.Run(helper, Monitor); break;
+                        case "animals": AnimalsAudit.Run(helper, Monitor); break;
+                        case "toolbar": ToolbarAudit.Run(helper, Monitor); break;
+                        case "player-hd": PlayerHdAudit.Run(helper, Monitor); break;
+                        case "player-hd-production": PlayerHdAudit.Run(helper, Monitor, true); break;
+                        case "cave-atmosphere": CaveAtmosphereAudit.Run(helper, Monitor); break;
+                        case "utility-building-contracts": UtilityBuildingsAudit.Export(helper, Monitor); break;
+                        case "utility-buildings": UtilityBuildingsAudit.Run(helper, Monitor); break;
                         default: throw new InvalidOperationException("Unknown selected audit: " + check);
                     }
                     GC.Collect();

@@ -15,7 +15,10 @@ $files = @(
     @{ Source = (Join-Path $source 'README.md'); Relative = 'README.md' },
     @{ Source = (Join-Path $source 'artwork.json'); Relative = 'artwork.json' }
 )
-foreach ($relative in ((Get-Content (Join-Path $source 'artwork.json') -Raw | ConvertFrom-Json).File | Sort-Object -Unique)) {
+. (Join-Path $PSScriptRoot 'get-player-hd-files.ps1')
+$artFiles = @((Get-Content (Join-Path $source 'artwork.json') -Raw | ConvertFrom-Json).File | Sort-Object -Unique) + @(Get-PlayerHdFiles $source)
+$artFiles += @(Get-ModernClothingFiles $source)
+foreach ($relative in $artFiles) {
         if ([IO.Path]::IsPathRooted($relative) -or ($relative -split '[/\\]') -contains '..') { throw "Unsafe asset path: $relative" }
         $assetSource = Join-Path $source $relative
         if (!(Test-Path -LiteralPath $assetSource)) { throw "Missing asset: $relative" }

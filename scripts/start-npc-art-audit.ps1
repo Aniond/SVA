@@ -25,6 +25,9 @@ $npcExtracted = Join-Path $npcMods 'AbigailModern'
 $npcAudioPreferences = Join-Path $GamePath 'Mods/AbigailModern/audio-preferences.json'
 if (Test-Path -LiteralPath $npcAudioPreferences) { Copy-Item -LiteralPath $npcAudioPreferences -Destination (Join-Path $npcExtracted 'audio-preferences.json') }
 $npcFiles = @('manifest.json', 'artwork.json', 'README.md') + @((Get-Content (Join-Path $npcSource 'artwork.json') -Raw | ConvertFrom-Json).File | Sort-Object -Unique)
+. (Join-Path $PSScriptRoot 'get-player-hd-files.ps1')
+$npcFiles += @(Get-PlayerHdFiles $npcSource)
+$npcFiles += @(Get-ModernClothingFiles $npcSource)
 foreach ($npcFile in $npcFiles) {
     if ((Get-FileHash -LiteralPath (Join-Path $npcSource $npcFile)).Hash -ne (Get-FileHash -LiteralPath (Join-Path $npcExtracted $npcFile)).Hash) { throw "Package is stale: $npcFile" }
 }

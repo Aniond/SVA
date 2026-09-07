@@ -133,6 +133,14 @@ internal sealed class AbigailRelationship
     // Return copies so future consumers cannot mutate the authoritative ledger.
     internal object GetContext() => GetConversationContext("");
 
+    internal object GetPhoneContext(string message)
+    {
+        var reminder = offeredReminder;
+        var experiences = selectedExperiences;
+        try { return GetConversationContext(message); }
+        finally { offeredReminder = reminder; selectedExperiences = experiences; }
+    }
+
     internal object GetConversationContext(string message)
     {
         if (!Ready) throw new InvalidOperationException("Load a single-player farm first.");

@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,6 +26,15 @@ internal static class BlueUiText
         monitor = log;
         harmony = new Harmony(id + ".BlueUiText");
         PatchMenus(typeof(IClickableMenu).Assembly);
+        try
+        {
+            harmony.Patch(AccessTools.Method(typeof(Toolbar), nameof(Toolbar.draw), new[] { typeof(SpriteBatch) }),
+                transpiler: new HarmonyMethod(typeof(BlueUiText), nameof(ToolbarShortcutTranspiler)));
+        }
+        catch (Exception ex)
+        {
+            log.Log($"Could not center toolbar shortcuts: {ex.Message}", LogLevel.Warn);
+        }
         foreach (var method in PortraitDrawMethods(typeof(BlueUiText).Assembly))
             Patch(method, nameof(EnterScope), nameof(ExitScope));
         foreach (var method in typeof(IClickableMenu).GetMethods(BindingFlags.Public | BindingFlags.Static)
@@ -48,6 +58,49 @@ internal static class BlueUiText
                 RegisterSolaceUi(assembly);
             log.Log($"Blue UI ink installed on {Patched.Count} drawing methods.", LogLevel.Trace);
         };
+    }
+
+    // Replace the single shortcut call inside Toolbar.draw, leaving item draw/count calls intact.
+    internal static IEnumerable<CodeInstruction> ToolbarShortcutTranspiler(IEnumerable<CodeInstruction> instructions)
+    {
+        var result = instructions.Select(instruction => new CodeInstruction(instruction)).ToList();
+        var native = AccessTools.Method(typeof(SpriteBatch), nameof(SpriteBatch.DrawString),
+            new[] { typeof(SpriteFont), typeof(string), typeof(Vector2), typeof(Color) });
+        var calls = result.Where(instruction => instruction.Calls(native)).ToArray();
+        if (calls.Length != 1)
+            throw new InvalidOperationException($"Expected one native toolbar shortcut call; found {calls.Length}.");
+        calls[0].opcode = OpCodes.Call;
+        calls[0].operand = AccessTools.Method(typeof(BlueUiText), nameof(DrawToolbarShortcut));
+        return result;
+    }
+
+    internal static Vector2 ToolbarShortcutPosition(Vector2 nativePosition, Vector2 measuredSize)
+    {
+        // Native input is slot+(4,-8); tinyFont's glyph cropping already supplies its top inset.
+        return new Vector2(MathF.Round(nativePosition.X - 4 + (64 - measuredSize.X) / 2), nativePosition.Y + 2);
+    }
+
+    private static void DrawToolbarShortcut(SpriteBatch batch, SpriteFont font, string text, Vector2 position, Color color)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+        position = ToolbarShortcutPosition(position, font.MeasureString(text));
+        float alpha = color.A / 255f;
+        Color outline = new Color(8, 22, 35) * alpha;
+        Color foreground = new Color(240, 246, 255) * alpha;
+        int previousShadowDepth = shadowHelperDepth;
+        shadowHelperDepth++;
+        try
+        {
+            batch.DrawString(font, text, position + new Vector2(-1, 0), outline);
+            batch.DrawString(font, text, position + new Vector2(1, 0), outline);
+            batch.DrawString(font, text, position + new Vector2(0, -1), outline);
+            batch.DrawString(font, text, position + new Vector2(0, 1), outline);
+            batch.DrawString(font, text, position, foreground);
+        }
+        finally
+        {
+            shadowHelperDepth = previousShadowDepth;
+        }
     }
 
     internal static void RegisterSolaceUi(Assembly assembly)
@@ -252,8 +305,3 @@ internal static class BlueUiText
         return new Color((int)(r + (255 - r) * .55f), (int)(g + (255 - g) * .55f), (int)(b + (255 - b) * .55f)) * alpha;
     }
 }
-
-
-
-
-

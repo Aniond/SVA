@@ -12,7 +12,8 @@ internal sealed record RelationshipTreeView(TreeCardView[] Cards, string Outlook
 /// <summary>A read-only journal: selecting a card never accepts a promise or grants a perk.</summary>
 internal sealed class RelationshipTreeMenu : IClickableMenu
 {
-    private static readonly string[] Branches = { "Strange Little Treasures", "Beyond the Fence", "On My Own Terms" };
+    private readonly string[] Branches;
+    private readonly string character;
     private static readonly Color Ink = new(239, 228, 249), Muted = new(190, 178, 202), Panel = new(33, 25, 43);
     private readonly Func<RelationshipTreeView> getView;
     private readonly Dictionary<string, Rectangle> cards = new();
@@ -23,8 +24,10 @@ internal sealed class RelationshipTreeMenu : IClickableMenu
     private string? selected;
     private int tab, treeScroll, detailScroll, treeHeight, detailHeight;
 
-    public RelationshipTreeMenu(Func<RelationshipTreeView> getView)
+    public RelationshipTreeMenu(Func<RelationshipTreeView> getView, string character = "Abigail", string[]? branches = null)
     {
+        this.character = character;
+        Branches = branches ?? new[] { "Strange Little Treasures", "Beyond the Fence", "On My Own Terms" };
         this.getView = getView;
         view = getView();
         selected = view.Cards.FirstOrDefault()?.Id;
@@ -113,7 +116,7 @@ internal sealed class RelationshipTreeMenu : IClickableMenu
         var screen = new Rectangle(0, 0, Game1.uiViewport.Width, Game1.uiViewport.Height);
         b.Draw(Game1.staminaRect, screen, Color.Black * .75f);
         b.Draw(Game1.staminaRect, new Rectangle(xPositionOnScreen, yPositionOnScreen, width, height), new Color(21, 15, 29));
-        Text(b, "Abigail / Relationship", xPositionOnScreen + 16, yPositionOnScreen + 12, width - 80, Ink, screen, .95f);
+        Text(b, character + " / Relationship", xPositionOnScreen + 16, yPositionOnScreen + 12, width - 80, Ink, screen, .95f);
         Text(b, "X", close.X + 7, close.Y + 3, 26, Ink, screen);
         for (int i = 0; i < tabs.Length; i++)
         {
@@ -137,7 +140,15 @@ internal sealed class RelationshipTreeMenu : IClickableMenu
                 if (!cards.TryGetValue(parent, out var source)) continue;
                 var a = OnTree(source); var z = OnTree(target);
                 int middle = z.Top - 12;
-                if (a.X == z.X && z.Top - a.Bottom > 40)
+                if (view.Cards.First(c => c.Id == parent).Parents.Length == 0)
+                {
+                    // Keep the root's horizontal branch visible above the branch headings.
+                    int junction = a.Bottom + 12;
+                    Fill(b, new Rectangle(a.Center.X, a.Bottom, 2, 12), Muted * .5f, treeArea);
+                    Fill(b, new Rectangle(Math.Min(a.Center.X, z.Center.X), junction, Math.Abs(a.Center.X - z.Center.X) + 2, 2), Muted * .5f, treeArea);
+                    Fill(b, new Rectangle(z.Center.X, junction, 2, Math.Max(2, middle - junction)), Muted * .5f, treeArea);
+                }
+                else if (a.X == z.X && z.Top - a.Bottom > 40)
                 {
                     // A later sibling shares its parent's connector, rather than looking like
                     // it depends on the intervening sibling (the safe/bold adventure fork).
@@ -175,7 +186,7 @@ internal sealed class RelationshipTreeMenu : IClickableMenu
             {
                 var portrait = new Rectangle(r.X + 10, r.Y + 12, 64, 64);
                 if (treeArea.Contains(portrait))
-                    b.Draw(Game1.content.Load<Texture2D>("Portraits/Abigail"), portrait, new Rectangle(0, 0, 64, 64), Color.White);
+                    b.Draw(Game1.content.Load<Texture2D>("Portraits/" + character), portrait, new Rectangle(0, 0, 64, 64), Color.White);
                 inset = 84;
             }
             Text(b, card.Title, r.X + inset, r.Y + 9, r.Width - inset - 8, Ink, clip, .78f);
@@ -193,7 +204,7 @@ internal sealed class RelationshipTreeMenu : IClickableMenu
             1 => $"History\n\n{view.History}",
             2 => $"Promises\n\n{view.PromiseDetails}\n\nHelp status\n{view.HelpStatus}",
             _ => chosen == null ? "Select a card to read its story." :
-                $"{chosen.Title}\n{chosen.State}\n\nRequirements\n{chosen.Requirement}\n\nPerk\n{chosen.Perk}\n\nAbigail's outlook\n{view.Outlook}\n\nHelp status\n{view.HelpStatus}\n\nApproach\n{view.Approach}"
+                $"{chosen.Title}\n{chosen.State}\n\nRequirements\n{chosen.Requirement}\n\nPerk\n{chosen.Perk}\n\n{character}'s outlook\n{view.Outlook}\n\nHelp status\n{view.HelpStatus}\n\nApproach\n{view.Approach}"
         };
         int textWidth = detailArea.Width - 28;
         detailHeight = (int)Math.Ceiling(Game1.smallFont.LineSpacing * .8f) * Game1.parseText(text, Game1.smallFont, Math.Max(30, (int)(textWidth / .8f))).Split('\n').Length + 24;

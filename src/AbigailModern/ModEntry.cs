@@ -7,6 +7,7 @@ namespace AbigailModern;
 
 public sealed class ModEntry : Mod
 {
+    internal static bool EntryCompleted { get; private set; }
     private readonly Dictionary<string, IRawTextureData> artworkPixels = new(StringComparer.OrdinalIgnoreCase);
 
     private IRawTextureData GetArtworkPixels(string file)
@@ -71,6 +72,9 @@ public sealed class ModEntry : Mod
             }
         };
         BlueUiText.Initialize(helper, Monitor, ModManifest.UniqueID);
+        ModernClothingLoader.Initialize(helper, Monitor);
+        PlayerHdRenderer.Initialize(helper, Monitor, ModManifest.UniqueID);
+        PlayerCreatorPreview.Initialize(helper, Monitor, ModManifest.UniqueID);
         helper.Events.GameLoop.GameLaunched += (_, _) =>
         {
             var verified = 0;
@@ -107,6 +111,8 @@ public sealed class ModEntry : Mod
         RobotPortraits.Initialize(helper, Monitor, ModManifest.UniqueID);
         StormHail.Initialize(helper, Monitor);
         _ = new Visuals.VisualEffectsController(helper, Monitor);
+        _ = new Visuals.CaveAtmosphereController(helper, Monitor);
+        EntryCompleted = true;
     }
 
     private void CheckAsset(ArtAsset asset)

@@ -16,6 +16,7 @@ internal sealed class RomanceDates
     private readonly Action<string, string, string>? remember;
     private readonly Func<NPC, string, Task<string>>? narrate;
     private readonly Action<string, string>? signal;
+    internal Func<bool>? OtherActivityReserved { get; set; }
     private string? promptedBooking;
     private int promptAgainMinute;
     internal const string QuestId = "David.SolaceWeather/SharedActivity";
@@ -59,6 +60,11 @@ internal sealed class RomanceDates
     internal bool TryOpen(NPC npc, bool romantic = false, bool repair = false)
     {
         if (!Game1.IsMasterGame || !canHelpNpc(npc) || Game1.eventUp) return false;
+        if (OtherActivityReserved?.Invoke() == true)
+        {
+            Show("You already have a shared outing planned. Finish or cancel that plan first.");
+            return true;
+        }
         if (getState().Booking is { } booking)
         {
             Show($"Meeting {booking.Npc}: {Label(booking.Type)}, {DateLabel(booking.Day)}, {Clock(booking.StartMinute)}. Meet in {Venue(booking.Type)}; arrival grace is 30 minutes.",
@@ -88,7 +94,7 @@ internal sealed class RomanceDates
                 int chosenMinute = minute;
                 options.Add(($"{DateLabel(day)}, {Clock(minute)}", () =>
                 {
-                    if (Available(npc, chosenDay, chosenMinute, type) && RomanceRules.Book(getState(), npc.Name, chosenDay, chosenMinute, Today, Minute, type, romantic, repair))
+                    if (OtherActivityReserved?.Invoke() != true && Available(npc, chosenDay, chosenMinute, type) && RomanceRules.Book(getState(), npc.Name, chosenDay, chosenMinute, Today, Minute, type, romantic, repair))
                     {
                         EnsureQuest();
                         if (romantic) signal?.Invoke(npc.Name, "date");

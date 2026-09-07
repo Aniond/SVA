@@ -121,6 +121,7 @@ public sealed class ConversationReply
     public string AskedTopic { get; set; } = "";
     public string RecalledExperienceId { get; set; } = "";
     public bool SpontaneousRecall { get; set; }
+    public bool CommentedOutfit { get; set; }
 }
 
 

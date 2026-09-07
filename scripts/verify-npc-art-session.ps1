@@ -29,6 +29,9 @@ foreach ($npcCheckName in $RequiredChecks) {
     Get-ChildItem -LiteralPath $npcRecord.AuditFolder -Filter "$npcCheckName-*" -File | Copy-Item -Destination $npcEvidence -Force
 }
 $npcFiles = @('manifest.json','artwork.json','README.md') + @($npcRegistry.File | Sort-Object -Unique)
+. (Join-Path $PSScriptRoot 'get-player-hd-files.ps1')
+$npcFiles += @(Get-PlayerHdFiles $npcSource)
+$npcFiles += @(Get-ModernClothingFiles $npcSource)
 $npcTarget = Join-Path $npcRecord.ModsPath 'AbigailModern'
 $npcHashes = [ordered]@{}
 foreach ($npcFile in $npcFiles) {

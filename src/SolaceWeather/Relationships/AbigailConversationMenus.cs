@@ -10,6 +10,7 @@ namespace SolaceWeather.Relationships;
 
 internal sealed partial class NpcConversation
 {
+    internal static PlayerPortraits.PlayerPortraitService? PlayerPortraits { get; set; }
     private sealed class ConversationInput : NamingMenu
     {
         private readonly Action cancel;
@@ -46,6 +47,7 @@ internal sealed partial class NpcConversation
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
+            if (RetryPortrait(x, y, PortraitTop)) return;
             if (PerksBounds(PortraitTop).Contains(x, y)) { textBox.Selected = false; choose("ui:services"); return; }
             for (int i = 0; i < visibleChoices.Length; i++)
                 if (QuestBounds(i).Contains(x, y)) { textBox.Selected = false; choose(visibleChoices[i].Key); return; }
@@ -90,6 +92,22 @@ internal sealed partial class NpcConversation
         Math.Min(Game1.uiViewport.Width - 120, Game1.uiViewport.Width / 2 + PortraitSize / 2 + 24),
         portraitTop + PortraitSize / 2 - 12, 104, 48);
 
+    private static Rectangle PortraitRetryBounds(int top)
+    {
+        int left = Game1.uiViewport.Width / 2 - PortraitSize / 2 - PortraitSize - 40;
+        return left >= 132
+            ? new Rectangle(left - 120, top + PortraitSize / 2 - 12, 104, 40)
+            : new Rectangle(left, Math.Max(8, top - 48), 104, 40);
+    }
+
+    private static bool RetryPortrait(int x, int y, int top)
+    {
+        if (PlayerPortraits?.GetStatus(Game1.player.UniqueMultiplayerID) != "Failed"
+            || !PortraitRetryBounds(top).Contains(x, y)) return false;
+        PlayerPortraits.Retry(Game1.player.UniqueMultiplayerID);
+        return true;
+    }
+
     private static void DrawAbigailPortrait(SpriteBatch batch, int centerX, int top, string expression)
     {
         Texture2D portrait = Game1.content.Load<Texture2D>("Portraits/" + Speaker);
@@ -102,6 +120,17 @@ internal sealed partial class NpcConversation
         IClickableMenu.drawTextureBox(batch, frame.X, frame.Y, frame.Width, frame.Height, Color.White);
         batch.Draw(portrait, new Rectangle(centerX - size / 2, top + 8, size, size),
             new Rectangle(index % columns * 64, index / columns * 64, 64, 64), Color.White);
+        if (PlayerPortraits?.TryGetPortrait(Game1.player.UniqueMultiplayerID, out var playerPortrait, out var playerSource) == true)
+        {
+            int left = centerX - size / 2 - size - 40;
+            if (left >= 12)
+            {
+                IClickableMenu.drawTextureBox(batch, left - 12, top, size + 24, size + 24, Color.White);
+                batch.Draw(playerPortrait, new Rectangle(left, top + 8, size, size), playerSource, Color.White);
+            }
+        }
+        if (PlayerPortraits?.GetStatus(Game1.player.UniqueMultiplayerID) == "Failed" && PortraitRetryBounds(top).X >= 12)
+            QuestTextRenderer.DrawButton(batch, PortraitRetryBounds(top), "Retry", Array.Empty<string>());
     }
     private static Rectangle ChoiceBounds(int top) => new((Game1.uiViewport.Width - Math.Min(720, Game1.uiViewport.Width - 48)) / 2,
         top, Math.Min(720, Game1.uiViewport.Width - 48), 48);
@@ -120,7 +149,7 @@ internal sealed partial class NpcConversation
         internal DeliveryReplyBox(string text, Func<QuestChoice[]> choices, string[] itemTerms, Action<string> choose, string expression = "neutral") : base(text)
         {
             this.choices = choices; this.itemTerms = itemTerms; this.choose = choose;
-            this.expression = AbigailExpression.Normalize(expression);
+            this.expression = CharacterReactions.Normalize(Speaker, expression);
             visibleChoices = choices();
             Reflow();
         }
@@ -170,6 +199,7 @@ internal sealed partial class NpcConversation
 
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
+            if (!transitioning && RetryPortrait(x, y, Math.Max(20, this.y - PortraitSize - 40))) return;
             if (!transitioning && PerksBounds(Math.Max(20, this.y - PortraitSize - 40)).Contains(x, y))
             { choose("ui:services"); return; }
             if (!transitioning)

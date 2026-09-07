@@ -94,6 +94,7 @@ public sealed class MovementControls
         try
         {
             if (TryLeaveSeat(tile)) return;
+            if (TryUseFarmhouseExit(tile)) return;
             if (config.EnableClickToInteract && TryInteract(tile))
             {
                 consumedClick = true;
@@ -156,6 +157,28 @@ public sealed class MovementControls
         return StartRoute(route, null);
     }
 
+    /// <summary>Recognize only the house's visible entrance and its adjacent native exit trigger.</summary>
+    public bool TryUseFarmhouseExit(Point tile)
+    {
+        if (!config.EnableClickToMove || !CanWalkNow() || ManualMovementHeld()
+            || Game1.currentLocation is not StardewValley.Locations.FarmHouse house) return false;
+        Point entry = house.getEntryLocation();
+        var exit = house.warps.FirstOrDefault(w => !w.npcOnly.Value && w.TargetName == "Farm"
+            && w.X == entry.X && w.Y == entry.Y + 1);
+        if (exit == null || (tile != entry && tile != new Point(exit.X, exit.Y))) return false;
+        if (Game1.player.controller != null && !IsWalking) return true;
+        Cancel();
+        Point start = Game1.player.TilePoint;
+        var route = FarmhouseDoorwayPath.Find(new(start.X, start.Y), new(tile.X, tile.Y),
+            new(entry.X, entry.Y), new(exit.X, exit.Y), house.Map.Layers[0].LayerWidth,
+            house.Map.Layers[0].LayerHeight, CanCross);
+        if (route == null) { Game1.showRedMessage("Can't reach that from here."); return true; }
+        // The final step deliberately crosses the map edge. Farmer.MovePositionImpl checks
+        // the live native warp before collision, preserving its destination and normal transition.
+        StartRoute(route, null);
+        return true;
+    }
+
     private bool StartRoute(IReadOnlyList<WalkTile> route, Action? completed)
     {
         if (route.Count == 1) { completed?.Invoke(); return true; }
@@ -210,6 +233,7 @@ public sealed class MovementControls
     /// <summary>Returns true for a recognized action, including one which cannot be reached.</summary>
     public bool TryInteract(Point tile)
     {
+        if (TryUseFarmhouseExit(tile)) return true;
         if (!config.EnableClickToInteract || !CanWalkNow()) return false;
         var location = Game1.currentLocation;
         if (tile.X < 0 || tile.Y < 0 || tile.X >= location.Map.Layers[0].LayerWidth || tile.Y >= location.Map.Layers[0].LayerHeight) return false;
@@ -289,4 +313,16 @@ public sealed class MovementControls
     }
 
     public Action<NPC>? AfterNpcInteraction { get; set; }
+}
+
+/// <summary>Routes to the visible house doorway before taking one step onto its native warp.</summary>
+public static class FarmhouseDoorwayPath
+{
+    public static IReadOnlyList<WalkTile>? Find(WalkTile start, WalkTile click, WalkTile entry, WalkTile warp,
+        int width, int height, Func<WalkTile, bool> canWalk)
+    {
+        if ((click != entry && click != warp) || warp.X != entry.X || warp.Y != entry.Y + 1) return null;
+        var approach = WalkingPath.Find(start, entry, width, height, canWalk);
+        return approach?.Append(warp).ToArray();
+    }
 }

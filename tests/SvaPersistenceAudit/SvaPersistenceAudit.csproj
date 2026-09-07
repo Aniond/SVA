@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net6.0</TargetFramework><EnableModDeploy>false</EnableModDeploy><EnableModZip>false</EnableModZip><EnableHarmony>true</EnableHarmony></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.4.0" />
+    <ProjectReference Include="../../src/SolaceWeather.Core/SolaceWeather.Core.csproj" />
+    <None Update="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

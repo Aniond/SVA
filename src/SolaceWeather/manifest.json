@@ -1,8 +1,8 @@
 {
   "Name": "Solace Weather",
   "Author": "David",
-  "Version": "0.2.0",
-  "Description": "Evolving regional weather, forecasts, and an Egg Festival shelter pilot.",
+  "Version": "0.5.0",
+  "Description": "Evolving weather, Living Memory relationships, and two-way phone texting.",
   "UniqueID": "David.SolaceWeather",
   "EntryDll": "SolaceWeather.dll",
   "MinimumApiVersion": "4.5.2",

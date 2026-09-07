@@ -15,21 +15,34 @@ internal sealed partial class NpcConversation
     private readonly AbigailRelationship relationship;
     private readonly RomanceService romance;
     private static string Speaker = "Abigail";
-    private QuestChoice[] QuestChoices() => Speaker == "Abigail" ? relationship.Quests?.Choices() ?? Array.Empty<QuestChoice>() : Array.Empty<QuestChoice>();
+    private QuestChoice[] QuestChoices() => (Speaker == "Abigail" ? relationship.Quests?.Choices() ?? Array.Empty<QuestChoice>() : Array.Empty<QuestChoice>())
+        .Concat(OutingChoices?.Invoke(Speaker) ?? Array.Empty<QuestChoice>()).ToArray();
     private string[] ItemTerms => Speaker == "Abigail" ? relationship.Quests?.ItemTerms ?? Array.Empty<string>() : Array.Empty<string>();
-    private QuestChoice[] ServiceChoices() => romance.Choices(Speaker).Concat(Speaker == "Abigail" ? relationship.TreeService?.Choices() ?? Array.Empty<QuestChoice>() : Array.Empty<QuestChoice>()).ToArray();
+    internal Func<NPC, Action, bool>? OfferPhoneExchange { get; set; }
+    internal Func<NPC, bool>? BeginOuting { get; set; }
+    internal Func<string, QuestChoice[]>? OutingChoices { get; set; }
+    internal Func<string, string, QuestActionResult?>? ApplyOuting { get; set; }
+    internal Action<string, ConversationReply>? OutingReply { get; set; }
+    internal Func<string, QuestChoice[]>? ExtraServices { get; set; }
+    internal Action<string>? OpenExtraTree { get; set; }
+    internal Func<string, string, bool>? OpenExtraActivity { get; set; }
+    internal Action<string, ConversationReply, string>? ReplyDisplayed { get; set; }
+    private (IClickableMenu Menu, string Npc, ConversationReply Reply, string Snapshot)? awaitingDisplay;
+    private QuestChoice[] ServiceChoices() => romance.Choices(Speaker).Concat(Speaker == "Abigail" ? relationship.TreeService?.Choices() ?? Array.Empty<QuestChoice>() : Array.Empty<QuestChoice>())
+        .Concat(ExtraServices?.Invoke(Speaker) ?? Array.Empty<QuestChoice>()).ToArray();
     internal void Start(NPC npc)
     {
         if (!romance.Ready || !RomanceService.Supported(npc) || Game1.eventUp) return;
         Reset(); Speaker = npc.Name; romance.Contact(npc);
         farmerId = Game1.player.UniqueMultiplayerID; day = Game1.Date.TotalDays;
-        OpenInput();
+        OpenWithNumberOffer(npc);
     }
     private readonly ModConfig config;
     private readonly IMonitor monitor;
     private IClickableMenu? owned;
     private DialogueBox? original;
     private Task<ConversationReply>? pending;
+    internal bool Busy => pending != null;
     private CancellationTokenSource? cancellation;
     private string question = "";
     private string? currentAction;
@@ -61,6 +74,13 @@ internal sealed partial class NpcConversation
         this.romance = romance;
         this.config = config;
         this.monitor = monitor;
+        helper.Events.Display.RenderedActiveMenu += (_, _) =>
+        {
+            if (awaitingDisplay is not { } shown || !ReferenceEquals(Game1.activeClickableMenu, shown.Menu)) return;
+            if (shown.Menu is DialogueBox box && (box.transitioning || box.dialogues.Count > 1 || box.characterIndexInDialogue < box.getCurrentString().Length)) return;
+            awaitingDisplay = null;
+            if (romance.Ready && Game1.player.UniqueMultiplayerID == farmerId && Game1.Date.TotalDays == day) ReplyDisplayed?.Invoke(shown.Npc, shown.Reply, shown.Snapshot);
+        };
         helper.Events.Input.ButtonPressed += (_, e) =>
         {
             if (e.Button == SButton.Escape && owned != null && ReferenceEquals(Game1.activeClickableMenu, owned))
@@ -81,7 +101,7 @@ internal sealed partial class NpcConversation
             }
             else if (owned == null || !ReferenceEquals(Game1.activeClickableMenu, owned)) return;
             helper.Input.Suppress(e.Button);
-            OpenInput();
+            OpenWithNumberOffer(Game1.getCharacterFromName(Speaker));
         };
         helper.Events.GameLoop.UpdateTicked += (_, _) => Tick();
         helper.Events.GameLoop.ReturnedToTitle += (_, _) => { Reset(); lastNative = null; };
@@ -105,6 +125,13 @@ internal sealed partial class NpcConversation
         // Release that native flag now so closing a non-native menu cannot strand them.
         Game1.player.CanMove = true;
         Game1.activeClickableMenu = owned;
+    }
+
+    private void OpenWithNumberOffer(NPC npc)
+    {
+        if (BeginOuting?.Invoke(npc) == true) { Reset(); return; }
+        if (OfferPhoneExchange?.Invoke(npc, OpenInput) == true) return;
+        OpenInput();
     }
 
     private void Submit(string text)
@@ -140,12 +167,15 @@ internal sealed partial class NpcConversation
             Game1.activeClickableMenu = owned;
             return;
         }
+        if (choiceKey == "ui:haley-tree" && Speaker == "Haley") { OpenExtraTree?.Invoke(Speaker); Reset(); return; }
+        if (choiceKey == "ui:emily-tree" && Speaker == "Emily") { OpenExtraTree?.Invoke(Speaker); Reset(); return; }
+        if (OpenExtraActivity?.Invoke(Speaker, choiceKey) == true) { Reset(); return; }
         if (choiceKey is "romance:activity" or "romance:romantic-date" or "romance:repair-date")
         {
             if (romance.OpenActivity(Speaker, choiceKey)) Reset();
             return;
         }
-        var applied = choiceKey.StartsWith("romance:") ? romance.Apply(Speaker, choiceKey) : Speaker != "Abigail" ? null : choiceKey.StartsWith("tree:") ? relationship.TreeService?.ApplyChoice(choiceKey) : relationship.Quests?.ApplyChoice(choiceKey);
+        var applied = choiceKey.StartsWith("cemetery:") || choiceKey.StartsWith("haley:") || choiceKey.StartsWith("emily:") ? ApplyOuting?.Invoke(Speaker, choiceKey) : choiceKey.StartsWith("romance:") ? romance.Apply(Speaker, choiceKey) : Speaker != "Abigail" ? null : choiceKey.StartsWith("tree:") ? relationship.TreeService?.ApplyChoice(choiceKey) : relationship.Quests?.ApplyChoice(choiceKey);
         if (applied is not { } result)
         {
             Game1.addHUDMessage(new HUDMessage("That choice changed. Stand beside " + Speaker + " and check the current choices.", HUDMessage.error_type));
@@ -169,7 +199,7 @@ internal sealed partial class NpcConversation
             Speaker = native.characterDialogue.speaker.Name; romance.Contact(native.characterDialogue.speaker);
             farmerId = Game1.player.UniqueMultiplayerID;
             day = Game1.Date.TotalDays;
-            OpenInput();
+            OpenWithNumberOffer(native.characterDialogue.speaker);
         }
         if (owned == null) return;
         if (!romance.Ready || Game1.player.UniqueMultiplayerID != farmerId || Game1.Date.TotalDays != day
@@ -180,9 +210,11 @@ internal sealed partial class NpcConversation
         {
             var reply = pending.GetAwaiter().GetResult();
             romance.RememberReply(Speaker, question, reply);
+            OutingReply?.Invoke(Speaker, reply);
             owned = new DeliveryReplyBox(Speaker + ": " + reply.Reply + $"#{config.AbigailTalkKey}: reply   |   Esc: finish talking",
                 QuestChoices, ItemTerms, ActOnQuest, reply.Expression);
             Game1.activeClickableMenu = owned;
+            awaitingDisplay = (owned, Speaker, reply, context ?? "{}");
         }
         catch (Exception)
         {
@@ -209,6 +241,7 @@ internal sealed partial class NpcConversation
 
     private void Reset()
     {
+        awaitingDisplay = null;
         cancellation?.Cancel();
         cancellation?.Dispose();
         cancellation = null;
@@ -225,5 +258,3 @@ internal sealed partial class NpcConversation
     }
 
 }
-
-

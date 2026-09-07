@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup><TargetFramework>net6.0</TargetFramework><OutputType>Exe</OutputType><GameDir>C:/Program Files (x86)/Steam/steamapps/common/Stardew Valley</GameDir></PropertyGroup>
+<ItemGroup><Reference Include="xTile"><HintPath>$(GameDir)/xTile.dll</HintPath></Reference>
+<Reference Include="MonoGame.Framework"><HintPath>$(GameDir)/MonoGame.Framework.dll</HintPath></Reference>
+<Reference Include="Stardew Valley"><HintPath>$(GameDir)/Stardew Valley.dll</HintPath></Reference>
+<Reference Include="StardewModdingAPI"><HintPath>$(GameDir)/StardewModdingAPI.dll</HintPath></Reference>
+
+
+<Reference Include="0Harmony"><HintPath>$(GameDir)/smapi-internal/0Harmony.dll</HintPath></Reference>
+<Compile Include="../../src/AbigailModern/Visuals/CaveAtmosphereController.cs" Link="CaveAtmosphereController.cs"/><Compile Include="../../src/AbigailModern/Visuals/CaveAtmospherePolicy.cs" Link="CaveAtmospherePolicy.cs"/>
+<Reference Include="MonoMod.Common"><HintPath>$(GameDir)/smapi-internal/MonoMod.Common.dll</HintPath></Reference></ItemGroup>
+</Project>

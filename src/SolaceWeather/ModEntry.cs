@@ -18,18 +18,50 @@ public sealed class ModEntry : Mod
     private Relationships.AbigailRelationship? abigail;
     private Relationships.NpcConversation? abigailConversation;
     private Relationships.RomanceService? romance;
+    private PlayerPortraits.PlayerPortraitService? playerPortraits;
+    private Relationships.PhoneService? phone;
+    private Relationships.TownChatter? chatter;
+    private Relationships.CemeteryOuting? cemetery;
+    private Relationships.HaleyLifeService? haley;
+    private Relationships.EmilyLifeService? emily;
+    private Tailoring.TailoringService? tailoring;
+    private Relationships.FashionService? fashion;
+
+    private string SocialStage(string name)
+    {
+        if (RomanceProfiles.Get(name) != null)
+        {
+            if (Game1.player.friendshipData.TryGetValue(name, out var native) && native.IsDivorced()) return "Former partner";
+            IEnumerable<string>? nodes = name == "Abigail" ? abigail?.Memory?.Tree.Unlocked
+                : name == "Haley" ? haley?.State?.Tree.Unlocked : name == "Emily" ? emily?.State?.Tree.Unlocked : null;
+            return RelationshipStageLabels.For(romance?.State.Characters.GetValueOrDefault(name),
+                Game1.getCharacterFromName(name)?.Gender == Gender.Female, nodes);
+        }
+        if (!Game1.player.friendshipData.TryGetValue(name, out var friendship)) return "Acquaintance";
+        if (friendship.IsMarried()) return "Spouse";
+        if (friendship.IsEngaged()) return "Engaged";
+        if (friendship.IsDivorced()) return "Former partner";
+        return RelationshipStageLabels.NativeFriendship(friendship.Points);
+    }
 
     public override void Entry(IModHelper helper)
     {
         config = helper.ReadConfig<ModConfig>();
+        playerPortraits = new PlayerPortraits.PlayerPortraitService(helper, Monitor, () => config.EnablePlayerPortraitGeneration);
+        PlayerPortraits.PlayerPortraitCreationHooks.Install(ModManifest.UniqueID, playerPortraits);
+        Relationships.NpcConversation.PlayerPortraits = playerPortraits;
+        Relationships.PhoneMenu.PlayerPortraits = playerPortraits.TryGetPortrait;
         abigail = new Relationships.AbigailRelationship(helper, Monitor, config);
         _ = new Relationships.AbigailDeliveryQuest(helper, config, abigail);
         var tree = new Relationships.AbigailTreeService(helper, Monitor, abigail);
         romance = new Relationships.RomanceService(helper, Monitor, config, abigail, ModManifest.UniqueID);
         Relationships.RelationshipSocialEntry.Install(ModManifest.UniqueID, Monitor, () => romance.Ready, romance.OpenJournal,
-            name => romance.State.GetJourney(name, Game1.Date.TotalDays).BondStage);
+            SocialStage);
         abigailConversation = new Relationships.NpcConversation(helper, Monitor, config, abigail, romance);
         romance.OpenConversation = abigailConversation.Start;
+        phone = new Relationships.PhoneService(helper, Monitor, config, romance);
+        abigailConversation.OfferPhoneExchange = phone.OfferNumber;
+        romance.PhoneContactContext = phone.ContactContext;
         ClimateSettings climate;
         try
         {
@@ -42,6 +74,30 @@ public sealed class ModEntry : Mod
             climate = new ClimateSettings();
         }
         runtime = new WeatherRuntime(helper, Monitor, config, climate);
+        chatter = new Relationships.TownChatter(helper, Monitor, config, runtime, () => phone.Busy || abigailConversation.Busy);
+        romance.PublicChatterContext = chatter.PublicMemories;
+        cemetery = new Relationships.CemeteryOuting(helper, Monitor, romance, abigail);
+        haley = new Relationships.HaleyLifeService(helper, Monitor, romance, () => romance.CharacterMemory("Haley"), () => cemetery.HasReservation || emily?.HasReservation == true);
+        emily = new Relationships.EmilyLifeService(helper, Monitor, romance, () => romance.CharacterMemory("Emily"), () => cemetery.HasReservation || haley.HasReservation);
+        tailoring = new Tailoring.TailoringService(helper, Monitor, () => emily.CanTailor(), () => emily.CanTailor(true), emily.RecordCraft);
+        cemetery.OtherOutingReserved = () => haley.HasReservation || emily.HasReservation;
+        fashion = new Relationships.FashionService(helper, Monitor, () => config.EnableFashionComments);
+        fashion.OutfitObserved = (name, fingerprint) => { if (name == "Emily") emily.ObserveOutfit(name, fingerprint); else haley.ObserveOutfit(name, fingerprint); };
+        fashion.CustomFashion = tailoring.Fashion;
+        romance.FashionContext = fashion.ContextFor;
+        romance.CharacterLifeContext = (name, phoneContext) => name == "Emily" ? emily.ContextFor(name, phoneContext) : haley.ContextFor(name, phoneContext);
+        romance.PhoneReplyRemembered = (name, reply, snapshot) => { if (name == "Emily") emily.RememberReminder(name, reply, snapshot); else haley.RememberReminder(name, reply, snapshot); };
+        romance.OutingContext = cemetery.ContextFor;
+        romance.Dates.OtherActivityReserved = () => cemetery.HasReservation || haley.HasReservation || emily.HasReservation;
+        abigailConversation.BeginOuting = npc => npc.Name == "Emily" ? emily.TryBegin(npc) : npc.Name == "Haley" ? haley.TryBegin(npc) : cemetery.TryBegin(npc);
+        abigailConversation.OutingChoices = name => name == "Emily" ? emily.Choices(name) : name == "Haley" ? haley.Choices(name) : cemetery.Choices(name);
+        abigailConversation.ApplyOuting = (name, key) => name == "Emily" ? emily.Apply(name, key) : name == "Haley" ? haley.Apply(name, key) : cemetery.Apply(name, key);
+        abigailConversation.OutingReply = (name, reply) => { if (name == "Emily") emily.Reply(name, reply); else if (name == "Haley") haley.Reply(name, reply); else cemetery.Reply(name, reply); };
+        abigailConversation.ExtraServices = name => name == "Emily" ? emily.TreeChoices(name) : haley.TreeChoices(name);
+        abigailConversation.OpenExtraTree = name => { if (name == "Emily") emily.OpenTree(); else if (name == "Haley") haley.OpenTree(); };
+        abigailConversation.OpenExtraActivity = (name, key) => name == "Emily" && (key == "emily:tree:movement" ? emily.StartMovement() : key == "emily:tailoring" && tailoring.Open());
+        abigailConversation.ReplyDisplayed = (name, reply, snapshot) => { fashion.RememberReply(name, reply.CommentedOutfit, snapshot); if (name == "Emily") emily.RememberReminder(name, reply, snapshot); else haley.RememberReminder(name, reply, snapshot); };
+        romance.OpenCharacterTree = name => { if (name == "Emily") emily.OpenTree(); else if (name == "Haley") haley.OpenTree(); else if (name == "Abigail") tree.OpenTree(); };
         ui = new WeatherUi(runtime, helper.Translation);
         var festivals = new EggFestivalController(helper, Monitor, () => runtime.Enabled, () => runtime.GetCurrent(Region.Town));
         runtime.Compatible = GamePatches.Install(ModManifest.UniqueID, runtime, ui, festivals, Monitor);

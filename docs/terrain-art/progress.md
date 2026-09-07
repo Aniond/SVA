@@ -1,3 +1,7 @@
+## Latest: Animals and remaining farm structures — 0.15.0 installed
+
+42 animal/pet sheets and 17 remaining farm-structure sheets now match the established artwork. Toolbar shortcuts are centered at the top of each slot with a dark outline. Native checks passed: 309 animal, 313 structure, 321 toolbar and 23 effects checks. Isolated and normal launches verified 606 textures and 610 files. Music stays muted and earlier artwork is preserved. [Animals](animals-progress.md), [structures and previews](utility-buildings-progress.md).
+
 ## Latest: Blue UI 0.13.0 installed and verified
 
 87 interface sheets refreshed, including localized variants and Solace widgets. Verified 547 textures and 551 files. [Preview, coverage and player checks](ui-progress.md).
@@ -77,8 +81,4 @@ Grass and stone flooring use generated blade/stone-face details inside preserved
 Static evidence: staging-validation.json; work/ground-spring/prepared-qa.json; work/grass-spring/qa.json; work/stone-floor/HANDOFF.md; work/water-animated/validation.json; work/map-preview/HANDOFF.md. Runtime and installation evidence is recorded in the closure above.
 
 Remaining after this starter: other seasonal map-ground regions and cuttable grass rows; other flooring/path families; roads and shorelines beyond the reviewed patch; additional terrain textures as identified. This starter does not claim all terrain is upgraded.
-
-
-
-
 

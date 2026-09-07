@@ -1,0 +1,98 @@
+{
+  "Scale": 2,
+  "Assets": [
+    {
+      "File": "assets/player-hd/farmer_base.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_base-shade.png",
+      "Name": "Characters/Farmer/farmer_base"
+    },
+    {
+      "File": "assets/player-hd/farmer_base_bald.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_base_bald-shade.png",
+      "Name": "Characters/Farmer/farmer_base_bald"
+    },
+    {
+      "File": "assets/player-hd/farmer_base_mannequin.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_base_mannequin-shade.png",
+      "Name": "Characters/Farmer/farmer_base_mannequin"
+    },
+    {
+      "File": "assets/player-hd/farmer_base_mannequin_cursed.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_base_mannequin_cursed-shade.png",
+      "Name": "Characters/Farmer/farmer_base_mannequin_cursed"
+    },
+    {
+      "File": "assets/player-hd/farmer_girl_base.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_girl_base-shade.png",
+      "Name": "Characters/Farmer/farmer_girl_base"
+    },
+    {
+      "File": "assets/player-hd/farmer_girl_base_bald.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_girl_base_bald-shade.png",
+      "Name": "Characters/Farmer/farmer_girl_base_bald"
+    },
+    {
+      "File": "assets/player-hd/farmer_girl_mannequin.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_girl_mannequin-shade.png",
+      "Name": "Characters/Farmer/farmer_girl_mannequin"
+    },
+    {
+      "File": "assets/player-hd/farmer_girl_mannequin_cursed.png",
+      "Body": true,
+      "ShadeFile": "assets/player-hd/farmer_girl_mannequin_cursed-shade.png",
+      "Name": "Characters/Farmer/farmer_girl_mannequin_cursed"
+    },
+    {
+      "File": "assets/player-hd/hairstyles.png",
+      "Body": false,
+      "Name": "Characters/Farmer/hairstyles"
+    },
+    {
+      "File": "assets/player-hd/hairstyles2.png",
+      "Body": false,
+      "Name": "Characters/Farmer/hairstyles2"
+    },
+    {
+      "File": "assets/player-hd/shirts.png",
+      "Body": false,
+      "Name": "Characters/Farmer/shirts"
+    },
+    {
+      "File": "assets/player-hd/pants.png",
+      "Body": false,
+      "Name": "Characters/Farmer/pants"
+    },
+    {
+      "File": "assets/player-hd/accessories.png",
+      "Body": false,
+      "Name": "Characters/Farmer/accessories"
+    },
+    {
+      "File": "assets/player-hd/hats.png",
+      "Body": false,
+      "Name": "Characters/Farmer/hats"
+    },
+    {
+      "File": "assets/player-hd/hats_animals.png",
+      "Body": false,
+      "Name": "Characters/Farmer/hats_animals"
+    },
+    {
+      "Name": "Characters/Farmer/David.AbigailModern_ModernShirts",
+      "File": "assets/player-hd/modern-shirts.png",
+      "Body": false
+    },
+    {
+      "Name": "Characters/Farmer/David.AbigailModern_ModernPants",
+      "File": "assets/player-hd/modern-pants.png",
+      "Body": false
+    }
+  ]
+}
